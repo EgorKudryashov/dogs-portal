@@ -1,0 +1,35 @@
+.navbar{
+    height: 60px;
+    width: available;
+    position: sticky;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    background: yellowgreen;
+}
+
+.navbar__link{
+    margin-left: 50px;
+    font-family: "Consolas", serif;
+    font-style: normal;
+    font-size: 28px;
+    color: white;
+}
+
+.navbar__element{
+    margin-left: 50px;
+    font-family: "Consolas", serif;
+    font-style: normal;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+.navbar__profile{
+    margin-left: 30px;
+    background: white;
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    cursor: pointer;
+}
