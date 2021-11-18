@@ -1,8 +1,7 @@
 # dogs-portal
 study project (5th semester)
 ------------------------------------------------------------
-Attemnt to create a web-application with content about pets
-------------------------------------------------------------
-You can learn more from 'technicial-specification.docs'
-------------------------------------------------------------
-Technologies: ReactJS, NodeJS, MySQL
+    Учебный проект (5 семестр) 
+    Информационный веб-сайт с контентом о различных породах собак
+    Более подробно требования и функциональность описаны в technicial-specification.docs
+    Используемые технологии: ReactJS, NodeJS, MySQL
