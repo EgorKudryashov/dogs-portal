@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Card from "../component/UI/Card/Card";
+import Loader from "../component/UI/Loader/Loader";
 
 const MainPage = () => {
 
@@ -88,6 +89,7 @@ const MainPage = () => {
                         onClick={getInfo}>
                     КНОПКА
                 </button>
+                <Loader/>
             </div>
     );
 };
