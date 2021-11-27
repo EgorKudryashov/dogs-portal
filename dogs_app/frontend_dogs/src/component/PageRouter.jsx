@@ -14,7 +14,7 @@ const PageRouter = () => {
                     key = {route.key}
                 />
             )}
-            <Redirect to="/main"/>
+            <Redirect to="/"/>
         </Switch>
 
     );

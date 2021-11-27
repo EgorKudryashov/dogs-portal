@@ -4,7 +4,7 @@ import Loader from "../component/UI/Loader/Loader";
 import Search from "../component/UI/Search/Search";
 import Pagination from "../component/UI/Pagination/Pagination";
 
-const MainPage = () => {
+const PublicPage = () => {
 
     const [activePage, setActivePage]=useState(false);
 
@@ -108,4 +108,4 @@ const MainPage = () => {
     );
 };
 
-export default MainPage;
+export default PublicPage;

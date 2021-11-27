@@ -15,12 +15,12 @@ const Navbar = () => {
             </h1>
 
             <h2 className={classes.navbar__element}
-                onClick={()=>{router.push("/main")}}
+                onClick={()=>{router.push("/public")}}
             >
                 Главная
             </h2>
             <h2 className={classes.navbar__element}
-                    onClick={()=>{router.push("/main/community")}}
+                    onClick={()=>{router.push("/community")}}
             >
                 Сообщество
             </h2>
