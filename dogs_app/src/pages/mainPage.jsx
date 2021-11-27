@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Card from "../component/UI/Card/Card";
 import Loader from "../component/UI/Loader/Loader";
+import Search from "../component/UI/Search/Search";
+import Pagination from "../component/UI/Pagination/Pagination";
 
 const MainPage = () => {
 
@@ -12,7 +14,13 @@ const MainPage = () => {
         text: undefined
     })
 
-    const getInfo = async ()=>{
+    const [totalPages, setTotalPages]=useState(4);
+    const [currentPage, setCurrentPage]=useState(1);
+    function ChangePage (page) {
+        setCurrentPage(page)
+    }
+
+    const getInfo = async ()=> {
         await setInformation([
             {
                 key: "1",
@@ -59,37 +67,43 @@ const MainPage = () => {
                 title: "Девятая собака",
                 text: "Важная информация о девятой собаке"
             },
-            {
-                key: "10",
-                title: "Десятая собака",
-                text: "Важная информация о десятой собаке"
-            },
         ]);
         setActivePage(true);
     }
 
+    useEffect(getInfo,[])
+
     return (
         activePage
             ?
-            <div className="container mt-5">
-                <div className='row'>
-                    {information.map((item)=>(
-                        <div className='col-4' key={item.title}>
-                            <Card
-                                title={item.title}
-                                text={item.text}
-                            />
-                        </div>
-                    ))}
+            <div>
+                <Search/>
+                <div className="container mt-5">
+
+                    <div className='row'>
+                        {information.map((item)=>(
+                            <div className='col-4' key={item.title}>
+                                <Card
+                                    title={item.title}
+                                    text={item.text}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                    <Pagination
+                        totalPages={totalPages}
+                        page={currentPage}
+                        changePage={ChangePage}
+                    />
                 </div>
             </div>
             :
-            <div className="container mt-5 l-5">
-                <button type="button" className="btn btn-info"
-                        onClick={getInfo}>
-                    КНОПКА
-                </button>
-                <Loader/>
+            <div className="container mt-5">
+                <div className="row justify-content-md-center">
+                    <div className="col-md-auto">
+                    <Loader/>
+                    </div>
+                </div>
             </div>
     );
 };
