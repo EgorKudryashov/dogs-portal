@@ -1,0 +1,36 @@
+.search{
+    background: #338866;
+    width: available;
+    height: 50px;
+    position: sticky;
+    display: flex;
+    place-items: center;
+
+}
+
+.search__item{
+    margin-left: 35%;
+    position: sticky;
+    display: flex;
+    height: 30pt;
+    width: 30%;
+    border-radius: 23px;
+
+    font-family: "Consolas", serif;
+    font-style: italic;
+    font-size: 24px;
+    color: black;
+}
+
+.search__button{
+    display: flex;
+    position: sticky;
+    border-radius: 10px;
+    background-color: #F6EA5A;
+    cursor: pointer;
+
+    font-family: "Consolas", serif;
+    font-style: normal;
+    font-size: 24px;
+    color: black;
+}
