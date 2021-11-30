@@ -1,27 +1,38 @@
 module.exports = (sequelize, DataTypes) => {
     const Users = sequelize.define('Users', {
-        id: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            primaryKey: true
-        },
-        name: {
-            type: DataTypes.STRING(75),
-            allowNull: false
+        username: {
+            type: DataTypes.STRING(100),
+            allowNull: false,
+            required: true
         },
         role: {
             type: DataTypes.STRING(40),
             allowNull: false
         },
-        description: {
+        info: {
             type: DataTypes.TEXT,
         },
-        town: {
+        avatar_path: {
             type: DataTypes.STRING,
         },
-        avatar: {
-            type: DataTypes.STRING,
+        login: {
+            type: DataTypes.STRING(15),
+            required: true,
+            allowNull: false
+        },
+        password: {
+            type: DataTypes.STRING(15),
+            required: true,
+            allowNull: false
         },
     });
+    Users.associate = (models) => {
+        Users.hasMany(models.Cards, {
+            onDelete: 'cascade'
+        })
+        Users.belongsToMany(models.Roles, {
+            onDelete: 'cascade'
+        })
+    }
     return Users
 };

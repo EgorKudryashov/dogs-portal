@@ -11,7 +11,9 @@ module.exports = (sequelize, DataTypes) => {
         image: {
             type: DataTypes.STRING,
         },
-        },
-    );
+        likes: {
+            type: DataTypes.INT,
+        }
+    });
     return Cards
 }
