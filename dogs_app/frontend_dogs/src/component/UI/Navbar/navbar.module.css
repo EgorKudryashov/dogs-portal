@@ -1,35 +1,75 @@
 .navbar{
-    height: 60px;
-    width: available;
-    position: sticky;
-    display: flex;
-    align-items: center;
+    height: 10vh;
     padding: 0 15px;
-    background: yellowgreen;
+    background: #4CC096;
+    /*width: available;*/
+    /*position: sticky;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.navbar__link{
-    margin-left: 50px;
-    font-family: "Consolas", serif;
-    font-style: normal;
-    font-size: 28px;
-    color: white;
+.navbar__logo{
+    color: #FBC940;
+    text-decoration: none;
+    font-size: 2rem;
+    font-family: "Comic Sans MS";
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 23rem;
+}
+.navbar__logo::after{
+    content: 'Собака - мой друг';
+    color: white
+}
+.navbar__logo:hover{
+    text-decoration: none;
+    color: #FBC940
+}
+
+.navbar__links{
+    display: flex;
+    list-style: none;
+    text-align: center;
+    width: 75vw;
+    justify-content: flex-end;
+    margin-right: 1.5rem;
 }
 
 .navbar__element{
-    margin-left: 50px;
-    font-family: "Consolas", serif;
+    color: white;
     font-style: normal;
     font-size: 20px;
-    color: white;
-    cursor: pointer;
+    text-decoration: none;
+    font-family: "Consolas";
+    display: flex;
+    align-items: center;
+
+    margin-right: 2rem;
+    padding: 6px 16px;
+    border-radius: 15px;
 }
 
-.navbar__profile{
-    margin-left: 30px;
-    background: white;
-    height: 40px;
-    width: 40px;
-    border-radius: 100%;
-    cursor: pointer;
+.navbar__element:hover{
+    background: #496950;
+    color: white;
+}
+
+.navbar__button{
+    display: inline-block;
+    width: 10%;
+    background: #FBC940;
+    border-radius: 15px;
+    font-family: "Arial Black";
+    font-weight: bold;
+    color:white;
+    border: none;
+    transition: transform .2s;
+}
+.navbar__button:hover{
+    background:#4CC096;
+    border: 2px solid #FBC940;
+    transform: scale(1.05)
 }
