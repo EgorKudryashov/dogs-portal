@@ -69,7 +69,8 @@
     transition: transform .2s;
 }
 .navbar__button:hover{
-    background:#4CC096;
+    background: #4CC096;
     border: 2px solid #FBC940;
-    transform: scale(1.05)
+    transform: scale(1.05);
+    color: #FBC940;
 }

@@ -7,7 +7,6 @@ import {MdPets} from 'react-icons/md'
 
 const Navbar = () => {
     const router = useHistory();
-
     return (
         <nav className = {classes.navbar}>
             <Link to='/' className={classes.navbar__logo}>
