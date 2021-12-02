@@ -31,7 +31,8 @@ module.exports = (sequelize, DataTypes) => {
             onDelete: 'cascade'
         })
         Users.belongsToMany(models.Roles, {
-            onDelete: 'cascade'
+             through: "User_has_role",
+             onDelete: "cascade"
         })
     }
     return Users

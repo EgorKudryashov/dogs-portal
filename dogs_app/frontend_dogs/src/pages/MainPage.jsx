@@ -14,7 +14,7 @@ const MainPage = () => {
                 <h1> В собаке собрано все лучшее, </h1>
                 <h2> что может быть в человеке </h2>
                 <p> Этьен Шарле </p>
-                <button onClick={()=>{router.push('/registration')}}>Присоединиться</button>
+               {/*<button onClick={()=>{router.push('/registration')}}>Присоединиться</button> */}
             </div>
         </div>
     );

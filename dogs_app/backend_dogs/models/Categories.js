@@ -5,5 +5,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         }
     });
+    Categories.associate = (models) => {
+         Categories.belongsToMany(models.Breeds, {
+             through: "Breed_has_category",
+             onDelete: "cascade"
+         })
+    }
     return Categories
 };

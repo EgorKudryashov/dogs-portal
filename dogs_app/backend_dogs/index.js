@@ -6,9 +6,16 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Routers
-const postRouter = require('./routes/route_card')
-app.use("/community", postRouter)
+/*----------------Routers------------*/
+
+// Главная страница
+const publicRouter = require('./routes/route_public')
+app.use("/public", publicRouter)
+
+// Сообщество
+
+
+// Профиль пользователя
 
 db.sequelize.sync().then(()=>{
     app.listen(4000, () =>{

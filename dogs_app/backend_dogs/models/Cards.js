@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
         },
         likes: {
-            type: DataTypes.INT,
+            type: DataTypes.INTEGER,
         }
     });
     return Cards

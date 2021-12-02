@@ -13,10 +13,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
     });
-    Breeds.associate = (models) => {
-        Breeds.belongsToMany(models.Categories, {
-            onDelete: 'cascade'
-        })
-    }
+     Breeds.associate = (models) => {
+          Breeds.belongsToMany(models.Categories, {
+              through: "Breed_has_category",
+              onDelete: 'cascade'
+          })
+     }
     return Breeds
 }
