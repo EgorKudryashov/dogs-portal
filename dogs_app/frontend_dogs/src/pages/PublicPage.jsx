@@ -10,6 +10,7 @@ const PublicPage = () => {
 
     const [information, setInformation]= useState({
         key: undefined,
+        img_path: undefined,
         title: undefined,
         text: undefined
     })
@@ -24,16 +25,19 @@ const PublicPage = () => {
         await setInformation([
             {
                 key: "1",
+                img_path: "./images_breeds/breed1.jpg",
                 title: "Первая собака",
                 text: "Важная информация о первой собаке"
             },
             {
                 key: "2",
+                img_path: "./images_breeds/breed2.jpg",
                 title: "Вторая собака",
                 text: "Важная информация о второй собаке"
             },
             {
                 key: "3",
+                img_path: "./images_breeds/breed3.jpeg",
                 title: "Третья собака",
                 text: "Важная информация о третьей собаке"
             },
@@ -84,6 +88,7 @@ const PublicPage = () => {
                         {information.map((item)=>(
                             <div className='col-4' key={item.title}>
                                 <Card
+                                    img_path={item.img_path}
                                     title={item.title}
                                     text={item.text}
                                 />
