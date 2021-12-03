@@ -5,7 +5,7 @@ const Card = ({img_path, title, text}) => {
     return (
         <div className="card border-dark mb-3 " style={{'maxWidth': '540px'}}>
             <div className="col-auto">
-                <img src={img_path} className="img-fluid rounded-start" alt="*картинка*"/>
+                <img src={`http://localhost:4000/${img_path}`} className="img-fluid rounded-start" alt="*картинка*"/>
             </div>
             <div className="row g-0">
                 <div className="col-auto">

@@ -1,10 +1,12 @@
 const express = require('express');
 const cors = require("cors");
 const db = require('./models')
-
 const app = express();
-app.use(express.json());
+
+
 app.use(cors());
+
+
 
 /*----------------Routers------------*/
 
@@ -16,6 +18,9 @@ app.use("/public", publicRouter)
 
 
 // Профиль пользователя
+
+// static images folder to upload image
+app.use('/images', express.static('./images'))
 
 db.sequelize.sync().then(()=>{
     app.listen(4000, () =>{
