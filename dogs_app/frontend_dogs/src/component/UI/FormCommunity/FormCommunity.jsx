@@ -1,27 +1,26 @@
 import React, {useState} from 'react';
+import axios from "axios";
 
 const FormCommunity = ({setVisible}) => {
-
-    const[card, setCard]=useState({
-        title: undefined,
-        text: undefined,
-        picture: undefined
-    })
-
+    
     const CreateCard = async () =>{
 
         let title = document.getElementById("title").value;
         let text = document.getElementById("text").value;
         let picture = document.getElementById("picture").files[0];
 
-        await setCard({title: title, text: text, picture: picture});
-        //Здесь нужно сделать запрос для сохранения пользовательской карточки на сервере
-        await console.log(card);
+        // то, что отправляется на сервер - это объект breedData
+        const breedData = new FormData()
+        breedData.append('breed_name', title)
+        breedData.append('info', text)
+        breedData.append('breed', picture)
+
+        await axios.post('http://localhost:4000/public/create', breedData)
         setVisible(false);
     }
 
     return (
-        <div>
+        <form encType='multipart/form-data' method='POST' onSubmit={CreateCard}>
             <div className="mb-3">
                 <label className="form-label"> Название породы </label>
                 <input type="text"
@@ -52,12 +51,12 @@ const FormCommunity = ({setVisible}) => {
                     </button>
                 </div>
                 <div className="col-md-2">
-                    <button type="button" className="btn btn-success" style={{borderRadius: 7}}
-                    onClick={CreateCard}>
-                        Создать</button>
+                    <button type="submit" className="btn btn-success" style={{borderRadius: 7}}>
+                        Создать
+                    </button>
                 </div>
             </div>
-        </div>
+        </form>
     );
 };
 
