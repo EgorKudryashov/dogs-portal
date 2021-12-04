@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import { useParams } from 'react-router-dom'
 import axios from "axios";
+import BreedCard from "../component/UI/Card/BreedCard";
 
-function BreedPage () {
+const BreedPage = () => {
     let { id } = useParams();
     const [breedObject, setBreedObject] = useState({})
     useEffect(() => {
@@ -12,9 +13,12 @@ function BreedPage () {
     },[])
     return (
         <div>
-            <h1> {breedObject.breed_name} </h1>
-            <p> {breedObject.info} </p>
-            <img src={`http://localhost:4000/${breedObject.image_path}`}></img>
+
+            <BreedCard
+                title={breedObject.breed_name}
+                content={breedObject.info}
+                image={breedObject.image_path}
+            />
         </div>
     );
 }

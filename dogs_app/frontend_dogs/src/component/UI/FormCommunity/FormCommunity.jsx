@@ -1,26 +1,27 @@
-import React, {useState} from 'react';
+import React from 'react';
 import axios from "axios";
 
 const FormCommunity = ({setVisible}) => {
-    
+
     const CreateCard = async () =>{
 
         let title = document.getElementById("title").value;
         let text = document.getElementById("text").value;
         let picture = document.getElementById("picture").files[0];
 
-        // то, что отправляется на сервер - это объект breedData
+// то, что отправляется на сервер - это объект breedData
         const breedData = new FormData()
         breedData.append('breed_name', title)
         breedData.append('info', text)
         breedData.append('breed', picture)
 
+        console.log(breedData)
         await axios.post('http://localhost:4000/public/create', breedData)
         setVisible(false);
     }
 
     return (
-        <form encType='multipart/form-data' method='POST' onSubmit={CreateCard}>
+        <div>
             <div className="mb-3">
                 <label className="form-label"> Название породы </label>
                 <input type="text"
@@ -51,13 +52,13 @@ const FormCommunity = ({setVisible}) => {
                     </button>
                 </div>
                 <div className="col-md-2">
-                    <button type="submit" className="btn btn-success" style={{borderRadius: 7}}>
+                    <button type="submit" className="btn btn-success" style={{borderRadius: 7}}
+                            onClick={CreateCard} formEncType={'multipart/form-data'}>
                         Создать
                     </button>
                 </div>
             </div>
-        </form>
-    );
-};
+        </div>
+    )};
 
 export default FormCommunity;

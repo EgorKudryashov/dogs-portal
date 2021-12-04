@@ -7,12 +7,6 @@ import Search from "../component/UI/Search/Search";
 import Pagination from "../component/UI/Pagination/Pagination";
 
 
-
-
-
-
-
-
 const PublicPage = () => {
 
     const [activePage, setActivePage]=useState(false);
