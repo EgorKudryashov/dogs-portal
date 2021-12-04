@@ -10,6 +10,8 @@ app.use(cors());
 
 /*----------------Routers------------*/
 
+// static images folder to upload image
+app.use('/images', express.static('./images'))
 // Главная страница
 const publicRouter = require('./routes/route_public')
 app.use("/public", publicRouter)
@@ -19,8 +21,6 @@ app.use("/public", publicRouter)
 
 // Профиль пользователя
 
-// static images folder to upload image
-app.use('/images', express.static('./images'))
 
 db.sequelize.sync().then(()=>{
     app.listen(4000, () =>{
