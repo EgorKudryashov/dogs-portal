@@ -20,7 +20,7 @@ const Navbar = () => {
                 <Link to='/community' className={classes.navbar__element}>
                     Сообщество
                 </Link>
-                <button className={classes.navbar__button} onClick={()=>{router.push("/login")}}> Войти </button>
+                <button className={classes.navbar__button} onClick={()=>{router.push("/join")}}> Войти </button>
             </div>
         </nav>
     )
