@@ -5,21 +5,27 @@ const app = express();
 
 
 app.use(cors());
+app.use(express.json());
 
 
 
 /*----------------Routers------------*/
 
-// static images folder to upload image
-app.use('/images', express.static('./images'))
+
 // Главная страница
 const publicRouter = require('./routes/route_public')
 app.use("/public", publicRouter)
 
+// Присоединиться (регистрация, авторизация)
+const joinRouter = require('./routes/route_join')
+app.use("/join", joinRouter)
+
 // Сообщество
 
-
 // Профиль пользователя
+
+// static images folder to upload image
+app.use('/images', express.static('./images'))
 
 
 db.sequelize.sync().then(()=>{

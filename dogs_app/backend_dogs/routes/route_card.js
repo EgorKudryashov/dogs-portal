@@ -4,8 +4,8 @@ const { Cards } = require('../models');
 
 
 router.get('/', async (req,res)=> {
-   const listOfPosts = await Cards.findAll();
-   res.json(listOfPosts);
+   const listOfCards = await Cards.findAll();
+   res.json(listOfCards);
 });
 router.post('/', async (req, res)=>{
    const data_from_frontend = req.body;

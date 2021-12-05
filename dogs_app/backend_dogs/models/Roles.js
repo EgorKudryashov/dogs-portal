@@ -5,12 +5,6 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         }
     });
-    Roles.associate = (models)=>{
-         Roles.belongsToMany(models.Users, {
-             through: "User_has_role",
-             onDelete: "cascade"
-         })
-    }
     return Roles
 };
 

@@ -7,21 +7,23 @@ module.exports = (sequelize, DataTypes) => {
         },
         role: {
             type: DataTypes.STRING(40),
-            allowNull: false
+            allowNull: false,
+            defaultValue: "USER" // ADMIN, MANAGER
         },
         info: {
             type: DataTypes.TEXT,
         },
         avatar_path: {
             type: DataTypes.STRING,
+            allowNull: true
         },
         login: {
-            type: DataTypes.STRING(15),
+            type: DataTypes.STRING(25),
             required: true,
             allowNull: false
         },
         password: {
-            type: DataTypes.STRING(15),
+            type: DataTypes.STRING(),
             required: true,
             allowNull: false
         },
@@ -29,10 +31,6 @@ module.exports = (sequelize, DataTypes) => {
     Users.associate = (models) => {
         Users.hasMany(models.Cards, {
             onDelete: 'cascade'
-        })
-        Users.belongsToMany(models.Roles, {
-             through: "User_has_role",
-             onDelete: "cascade"
         })
     }
     return Users
