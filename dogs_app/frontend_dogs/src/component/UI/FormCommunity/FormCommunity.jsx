@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import axios from "axios";
 
 const FormCommunity = ({setVisible}) => {
@@ -9,12 +9,8 @@ const FormCommunity = ({setVisible}) => {
         let text = document.getElementById("text").value;
         let picture = document.getElementById("picture").files[0];
 
-<<<<<<< HEAD
 
-        // то, что отправляется на сервер - это объект breedData
-=======
 // то, что отправляется на сервер - это объект breedData
->>>>>>> 5f3a365e5437152c37c529350e1dec8b439d292d
         const breedData = new FormData()
         breedData.append('breed_name', title)
         breedData.append('info', text)
@@ -58,11 +54,7 @@ const FormCommunity = ({setVisible}) => {
                 </div>
                 <div className="col-md-2">
                     <button type="submit" className="btn btn-success" style={{borderRadius: 7}}
-<<<<<<< HEAD
-                    onClick={CreateCard} formEncType={'multipart/form-data'}>
-=======
                             onClick={CreateCard} formEncType={'multipart/form-data'}>
->>>>>>> 5f3a365e5437152c37c529350e1dec8b439d292d
                         Создать
                     </button>
                 </div>

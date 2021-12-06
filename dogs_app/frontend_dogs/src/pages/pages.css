@@ -91,3 +91,29 @@
     border-radius: 20px 20px 20px 20px;
     transform: scale(1.01);
 }
+
+
+/*------------------------------------JOIN-PAGE--------------------------------------*/
+.joinPage {
+    background-color: #4CC096;
+    background-repeat: repeat;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+.forms{
+    margin-top: 2%;
+}
+.leftSide {
+    flex: 50%;
+    margin-left: 5%;
+    margin-top: 2%;
+    height: calc(100vh - 10px);
+    display: grid;
+    place-items: center;
+}
+
+.forms .rightSide {
+    margin-top: 5%;
+}
