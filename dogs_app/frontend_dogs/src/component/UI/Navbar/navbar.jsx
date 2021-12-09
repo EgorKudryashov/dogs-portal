@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import classes from "./navbar.module.css";
 import {useHistory, Link} from "react-router-dom";
-import {MdPets} from 'react-icons/md'
+import {MdPets} from 'react-icons/md';
+import { AuthContext } from "../../../helpers/authContext";
 
 
 
 const Navbar = () => {
+    const { authState, setAuthState } = useContext(AuthContext)
     const router = useHistory();
+    const logout = ()=>{
+        // при нажатии на "выйти" токен удаляется
+        localStorage.removeItem("accessToken");
+        setAuthState({
+            iid: 0,
+            role: "VISITOR",
+            statusOfAuth: false
+        })
+    }
+
     return (
         <nav className = {classes.navbar}>
             <Link to='/' className={classes.navbar__logo}>
@@ -20,31 +32,15 @@ const Navbar = () => {
                 <Link to='/community' className={classes.navbar__element}>
                     Сообщество
                 </Link>
-                <button className={classes.navbar__button} onClick={()=>{router.push("/join")}}> Войти </button>
+                { !authState.statusOfAuth ? (
+                    <button className={classes.navbar__button} onClick={()=>{router.push("/join")}}> Войти </button>
+                ) : (
+                    <button className={classes.navbar__button_exit} onClick={logout}> Выйти </button>
+                )}
+
             </div>
         </nav>
     )
-    // return (
-    //     <div className={classes.navbar}>
-    //
-    //         <div className={classes.navbar__profile}/>
-    //         <h1 className={classes.navbar__link}>
-    //             Собака -  твой друг
-    //         </h1>
-    //
-    //         <h2 className={classes.navbar__element}
-    //             onClick={()=>{router.push("/public")}}
-    //         >
-    //             Главная
-    //         </h2>
-    //         <h2 className={classes.navbar__element}
-    //                 onClick={()=>{router.push("/community")}}
-    //         >
-    //             Сообщество
-    //         </h2>
-    //
-    //     </div>
-    // );
 };
 
 export default Navbar;

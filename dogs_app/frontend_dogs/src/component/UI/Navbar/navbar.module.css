@@ -74,3 +74,20 @@
     transform: scale(1.05);
     color: white;
 }
+
+.navbar__button_exit{
+    display: inline-block;
+    width: 10%;
+    background: red;
+    border-radius: 15px;
+    font-family: "Arial Black";
+    font-weight: bold;
+    color:white;
+    border: none;
+    transition: transform .2s;
+}
+.navbar__button_exit:hover{
+    background: lightcoral;
+    transform: scale(1.05);
+    color: white;
+}

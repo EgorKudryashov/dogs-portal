@@ -13,7 +13,7 @@ router.post("/registration", async (req, res) =>{
         const { username, login, info, password } = req.body;
         const candidate = await Users.findOne({ where: {login: login}})
         if (candidate) {
-            res.status(400).json({message:"Пользователь с таким именем/логином уже существует"});
+            res.status(400).json({message:"Пользователь с таким логином уже существует"});
         }
         const hash = await bcrypt.hash(password, 7)
         Users.create(
@@ -40,11 +40,15 @@ router.post('/login', async (req, res)=> {
         if (!match) res.json({error:"Неправильный пароль"})
         else {
             const accessToken = jwt.sign({id: user.id, role: user.role}, secret, {expiresIn: '36h'});
-            res.json({token: accessToken, message: "Вы успешно вошли в систему"});
+            res.json({
+                token: accessToken,
+                role: user.role,
+                id: user.id,
+                message: "Вы успешно вошли в систему!"});
         }
     })
 })
-// Проверка роли пользователя
+// Проверка того, что пользователь авторизован (что он не visitor)
 router.get('/auth', validateAuth, (req, res)=>{
     res.json(req.UserSpecialInfo)
 })

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
 import "./Login.css"
-
+import { AuthContext } from "../../../helpers/authContext";
 
 function Login(){
+    const { setAuthState } = useContext(AuthContext)
     let history = useHistory()
     const [login, setLogin] = useState("")
     const [password, setPassword] = useState("")
@@ -16,6 +17,11 @@ function Login(){
             }
             else{
                 localStorage.setItem("accessToken", response.data.token);
+                setAuthState({
+                    id: response.data.id,
+                    role: response.data.role,
+                    statusOfAuth: true
+                })
                 alert(response.data.message)
                 history.push('/')
             }
