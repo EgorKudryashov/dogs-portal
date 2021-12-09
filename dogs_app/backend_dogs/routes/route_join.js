@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 
 const { Users } = require('../models')
 const { secret } = require('../config')
+const { validateAuth } = require('../controllers/authController')
 
 // Регистрация
 router.post("/registration", async (req, res) =>{
@@ -33,15 +34,19 @@ router.post('/login', async (req, res)=> {
     const {login, password} = req.body;
     const user = await Users.findOne({where: {login: login}})
 
-    if (!user) res.status(400).json({message:"Пользователя с таким логином не существует"})
+    if (!user) res.json({error:"Пользователя с таким логином не существует"})
 
     bcrypt.compare(password, user.password).then(async (match) => {
-        if (!match) res.status(400).json({message:"Неправильный пароль"})
+        if (!match) res.json({error:"Неправильный пароль"})
         else {
             const accessToken = jwt.sign({id: user.id, role: user.role}, secret, {expiresIn: '36h'});
-            res.send(`Добро пожаловать! Ваш токен: ${accessToken}`);
+            res.json({token: accessToken, message: "Вы успешно вошли в систему"});
         }
     })
+})
+// Проверка роли пользователя
+router.get('/auth', validateAuth, (req, res)=>{
+    res.json(req.UserSpecialInfo)
 })
 
 

@@ -11,9 +11,12 @@ function Login(){
     const signup = ()=>{
         const data = {login: login, password: password}
         axios.post("http://localhost:4000/join/login", data).then((response)=>{
-            if (response.data.error) {alert (response.data.error)}
+            if (response.data.error) {
+                alert (response.data.error)
+            }
             else{
-                alert(response.data)
+                localStorage.setItem("accessToken", response.data.token);
+                alert(response.data.message)
                 history.push('/')
             }
         });
