@@ -12,6 +12,7 @@ const Navbar = () => {
     const logout = ()=>{
         // при нажатии на "выйти" токен удаляется
         localStorage.removeItem("accessToken");
+        alert('Вы вышли из системы')
         setAuthState({
             iid: 0,
             role: "VISITOR",

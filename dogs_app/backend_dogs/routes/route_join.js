@@ -13,19 +13,30 @@ router.post("/registration", async (req, res) =>{
         const { username, login, info, password } = req.body;
         const candidate = await Users.findOne({ where: {login: login}})
         if (candidate) {
-            res.status(400).json({message:"Пользователь с таким логином уже существует"});
+            res.json({error:"Пользователь с таким логином уже существует"});
         }
         const hash = await bcrypt.hash(password, 7)
-        Users.create(
+        await Users.create(
                 {
                     username: username,
                     login: login,
                     info: info,
                     password: hash
                 })
-        res.send('Пользователь успешно зарегистрирован')
+
+        // После создания:
+        // достанем информацию о созданном пользователе и поместим её в токен
+        const createdUser = await Users.findOne({ where: {login: login}})
+        console.log(createdUser)
+        const accessToken = jwt.sign({id: createdUser.id, role: createdUser.role},
+                                    secret, {expiresIn: '36h'});
+        res.json({
+            token: accessToken,
+            role: createdUser.role,
+            id: createdUser.id,
+            message: "Пользователь успешно зарегистрирован!"});
     }catch(e){
-        res.status(400).json({message:"Ошибка при регистрации", e})
+        res.json({message:"Ошибка при регистрации", e})
     }
 })
 
@@ -48,6 +59,7 @@ router.post('/login', async (req, res)=> {
         }
     })
 })
+
 // Проверка того, что пользователь авторизован (что он не visitor)
 router.get('/auth', validateAuth, (req, res)=>{
     res.json(req.UserSpecialInfo)

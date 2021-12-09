@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
 import * as Yup from 'yup';
 import {Formik, Field, Form, ErrorMessage} from 'formik';
 import './Registration.css'
+import { AuthContext } from "../../../helpers/authContext";
 
 
 function Registration(){
+    const { setAuthState } = useContext(AuthContext);
     let history = useHistory()
     const initialValues = {
         username: "",
@@ -22,8 +24,19 @@ function Registration(){
     });
     const onSubmit = (data) => {
         axios.post("http://localhost:4000/join/registration", data).then((response)=>{
-            alert(response.data);
-            history.push('/');
+            if (response.data.error){
+                alert(response.data.error);
+            }else{
+                localStorage.setItem("accessToken", response.data.token);
+                setAuthState({
+                    id: response.data.id,
+                    role: response.data.role,
+                    statusOfAuth: true
+                })
+                alert(response.data.message)
+                history.push('/');
+            }
+
         })
     };
 
