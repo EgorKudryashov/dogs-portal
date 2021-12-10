@@ -19,6 +19,9 @@ const FormCommunity = ({setVisible}) => {
         console.log(breedData)
         await axios.post('http://localhost:4000/public/create', breedData)
         setVisible(false);
+        document.getElementById("title").value = "";
+        document.getElementById("text").value = "";
+        document.getElementById("picture").value = "";
     }
 
     return (
