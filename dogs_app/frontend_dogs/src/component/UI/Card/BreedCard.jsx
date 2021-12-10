@@ -6,12 +6,12 @@ const BreedCard = ({title, content, image}) => {
     const [like,setLike]=useState(false)
 
     return (
-        <div className="card border-dark mt-5" style={{"maxWidth": "70%", "marginLeft": "15%", "borderRadius": "20px"}}>
+        <div className="card border-dark mt-5" style={{"width": "70%", "height":"500px", "marginLeft": "15%", "borderRadius": "20px"}}>
             <div className="card-body row">
                 <div className="col-md-6">
                     <img src={`http://localhost:4000/${image}`}
                          className="img-thumbnail" alt="*картинка*"
-                         style={{"border-radius": "20px"}}/>
+                         style={{'width': '100%', 'height': '80%',"border-radius": "20px"}}/>
                     {!like
                         ?
                         <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="Crimson"
