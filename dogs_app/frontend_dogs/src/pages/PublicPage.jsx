@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import { useHistory } from "react-router-dom";
-import axios from "axios";
 import Card from "../component/UI/Card/Card";
 import Loader from "../component/UI/Loader/Loader";
 import Search from "../component/UI/Search/Search";
 import Pagination from "../component/UI/Pagination/Pagination";
+import {GetAllBreeds} from "../api/getfunction";
 
 
 const PublicPage = () => {
@@ -21,14 +21,13 @@ const PublicPage = () => {
 
 
     const getInfo = async ()=> {
-        await axios.get('http://localhost:4000/public').then((response)=>{
-            setInformation(response.data);
-        })
+        await GetAllBreeds(setInformation);//Запрос на получение всех пород
         setActivePage(true);
     }
     useEffect(getInfo,[])
 
     let history = useHistory()
+
     return (
         activePage
             ?

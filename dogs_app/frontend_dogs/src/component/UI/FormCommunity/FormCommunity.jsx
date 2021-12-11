@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from "axios";
+import {PostNewBreed} from "../../../api/postfunction";
 
 const FormCommunity = ({setVisible}) => {
 
@@ -9,7 +10,6 @@ const FormCommunity = ({setVisible}) => {
         let text = document.getElementById("text").value;
         let picture = document.getElementById("picture").files[0];
 
-
 // то, что отправляется на сервер - это объект breedData
         const breedData = new FormData()
         breedData.append('breed_name', title)
@@ -17,7 +17,7 @@ const FormCommunity = ({setVisible}) => {
         breedData.append('breed', picture)
 
         console.log(breedData)
-        await axios.post('http://localhost:4000/public/create', breedData)
+        PostNewBreed(breedData);//Post-запрос на создание карточки
         setVisible(false);
         document.getElementById("title").value = "";
         document.getElementById("text").value = "";
