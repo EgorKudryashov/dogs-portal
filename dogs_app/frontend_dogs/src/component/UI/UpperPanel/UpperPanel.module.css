@@ -1,0 +1,22 @@
+.panel{
+    background: #338866;
+    width: available;
+    height: 50px;
+    position: sticky;
+    display: flex;
+    place-items: center;
+}
+
+.panel__button{
+    display: flex;
+    position: sticky;
+    border-radius: 10px;
+    background-color: #F6EA5A;
+    cursor: pointer;
+    margin-left: 5%;
+
+    font-family: "Consolas", serif;
+    font-style: normal;
+    font-size: 18px;
+    color: black;
+}
