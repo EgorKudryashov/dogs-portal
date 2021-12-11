@@ -18,4 +18,17 @@ const validateAuth = (req, res, next) =>{
     }
 };
 
-module.exports = { validateAuth };
+const rolesAuth = (permission) => {
+    return (req, res, next) =>{
+        const UserRole = req.body.role
+        if (permission.includes(UserRole)){
+            next();
+        }else{
+            return res.json({
+                error: "Вы не имеете прав доступа для совершения этого действия"
+            })
+        }
+    }
+}
+
+module.exports = { validateAuth, rolesAuth };

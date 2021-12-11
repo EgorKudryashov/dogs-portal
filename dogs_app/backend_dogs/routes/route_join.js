@@ -7,6 +7,8 @@ const { Users } = require('../models')
 const { secret } = require('../config')
 const { validateAuth } = require('../controllers/authController')
 
+/* посмотреть транзакции на sequelize  */
+
 // Регистрация
 router.post("/registration", async (req, res) =>{
     try{
@@ -30,6 +32,7 @@ router.post("/registration", async (req, res) =>{
         console.log(createdUser)
         const accessToken = jwt.sign({id: createdUser.id, role: createdUser.role},
                                     secret, {expiresIn: '36h'});
+
         res.json({
             token: accessToken,
             role: createdUser.role,

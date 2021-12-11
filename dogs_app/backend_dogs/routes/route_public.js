@@ -5,6 +5,9 @@ const { Breeds } = require('../models')
 
 
 // Получение всех пород
+/* Есть ли возможность по частям обрабатывать запрос с большим кол-вом данных?
+*  (см. итераторы)
+* */
 router.get('/', async (req, res)=>{
     const listOfBreeds = await Breeds.findAll();
     res.json(listOfBreeds)
@@ -21,6 +24,7 @@ router.get('/breed/:id', async (req, res)=>{
 // могут наполнять главную страницу
 router.post('/create', upload.single('breed'), async (req, res)=>{
     const data_from_frontend = req.body;
+
     const data_to_DB = {
         breed_name: data_from_frontend.breed_name,
         info: data_from_frontend.info,

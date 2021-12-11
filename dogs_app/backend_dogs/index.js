@@ -28,8 +28,16 @@ app.use("/join", joinRouter)
 app.use('/images', express.static('./images'))
 
 
-db.sequelize.sync().then(()=>{
-    app.listen(4000, () =>{
-        console.log('Server running on port 4000');
+/* информация о проблеме, если она возникает
+*  в каком диалекте такая возможность есть?
+*  sequelize -> документация
+* */
+try{
+    db.sequelize.sync().then(()=>{
+        app.listen(4000, () =>{
+            console.log('Server running on port 4000');
+        })
     })
-})
+}catch(e){
+    console.log(e)
+}

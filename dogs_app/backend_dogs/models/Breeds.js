@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
     });
+
+    /*  Транзакции здесь  */
      Breeds.associate = (models) => {
           Breeds.belongsToMany(models.Categories, {
               through: "Breed_has_category",
