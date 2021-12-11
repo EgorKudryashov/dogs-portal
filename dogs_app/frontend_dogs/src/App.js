@@ -4,6 +4,7 @@ import Navbar from "./component/UI/Navbar/navbar";
 import PageRouter from "./component/PageRouter";
 import { AuthContext } from './helpers/authContext';
 import axios from "axios";
+import {GetTokenAuth} from "./api/getfunction";
 
 
 function App() {
@@ -14,24 +15,12 @@ function App() {
     });
 
     // Проверка того, авторизован ли пользователь
-    useEffect(()=>{
-        axios.get("http://localhost:4000/join/auth",{
-            headers:{
-                accessToken: localStorage.getItem('accessToken')
-            }
-        }).then((response)=>{
-            if (response.data.error){
-                setAuthState({...authState, statusOfAuth: false})
-            }else{
-                // если токен есть, то пользователь авторизован => можно хранить информацию о нем
-                setAuthState({
-                    id: response.data.id,
-                    role: response.data.role,
-                    statusOfAuth: true,
-                })
-            }
-        })
-    },[])
+    const AccessToken = async ()=>{
+        await GetTokenAuth(authState, setAuthState);//get-Запрос на актуальность токена
+    }
+    useEffect(
+       AccessToken,[]
+    )
 
     return (
         <AuthContext.Provider value={{authState, setAuthState}}>

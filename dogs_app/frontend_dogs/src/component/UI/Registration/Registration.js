@@ -5,11 +5,11 @@ import * as Yup from 'yup';
 import {Formik, Field, Form, ErrorMessage} from 'formik';
 import './Registration.css'
 import { AuthContext } from "../../../helpers/authContext";
+import {PostRegistration} from "../../../api/postfunction";
 
 
 function Registration(){
     const { setAuthState } = useContext(AuthContext);
-    let history = useHistory()
     const initialValues = {
         username: "",
         info: "",
@@ -22,22 +22,8 @@ function Registration(){
         login: Yup.string().min(5, 'Минимум 5 символов!').max(15, 'Максимум 15 символов!').required('Обязательное поле'),
         password: Yup.string().min(7, 'Минимум 7 символов!').max(11, 'Максимум 11 символов!').required('Обязательное поле')
     });
-    const onSubmit = (data) => {
-        axios.post("http://localhost:4000/join/registration", data).then((response)=>{
-            if (response.data.error){
-                alert(response.data.error);
-            }else{
-                localStorage.setItem("accessToken", response.data.token);
-                setAuthState({
-                    id: response.data.id,
-                    role: response.data.role,
-                    statusOfAuth: true
-                })
-                alert(response.data.message)
-                history.push('/');
-            }
-
-        })
+    const onSubmit = async (data) => {
+        await PostRegistration(data, setAuthState);//Post-запрос на регистрацию пользователя на сайте
     };
 
     return (

@@ -1,32 +1,18 @@
 import React, { useState, useContext } from "react";
-import axios from "axios";
-import {useHistory} from "react-router-dom";
 import "./Login.css"
 import { AuthContext } from "../../../helpers/authContext";
+import {PostLogin} from "../../../api/postfunction";
 
 function Login(){
     const { setAuthState } = useContext(AuthContext)
-    let history = useHistory()
     const [login, setLogin] = useState("")
     const [password, setPassword] = useState("")
-    const signup = ()=>{
+
+    const signUp = async ()=>{
         const data = {login: login, password: password}
-        axios.post("http://localhost:4000/join/login", data).then((response)=>{
-            if (response.data.error) {
-                alert (response.data.error)
-            }
-            else{
-                localStorage.setItem("accessToken", response.data.token);
-                setAuthState({
-                    id: response.data.id,
-                    role: response.data.role,
-                    statusOfAuth: true
-                })
-                alert(response.data.message)
-                history.push('/')
-            }
-        });
+        await PostLogin(data, setAuthState);//Post-запрос на вход на сайт, который допускает пользователя, если его данные верны
     };
+
     return (
         <div className="login">
             <label> Логин </label>
@@ -35,7 +21,7 @@ function Login(){
             <label> Пароль </label>
             <input type="password"
                    onChange={(event)=>{setPassword(event.target.value)}}/>
-            <button onClick={signup}> Войти </button>
+            <button onClick={signUp}> Войти </button>
         </div>
     )
 }
