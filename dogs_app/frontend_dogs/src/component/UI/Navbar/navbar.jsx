@@ -14,7 +14,7 @@ const Navbar = () => {
         localStorage.removeItem("accessToken");
         alert('Вы вышли из системы')
         setAuthState({
-            iid: 0,
+            id: 0,
             role: "VISITOR",
             statusOfAuth: false
         })

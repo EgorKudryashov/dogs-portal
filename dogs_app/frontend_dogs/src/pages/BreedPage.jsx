@@ -4,13 +4,16 @@ import axios from "axios";
 import BreedCard from "../component/UI/Card/BreedCard";
 
 const BreedPage = () => {
+
     let { id } = useParams();
     const [breedObject, setBreedObject] = useState({})
+
     useEffect(() => {
         axios.get(`http://localhost:4000/public/breed/${id}`).then((response) => {
             setBreedObject(response.data);
         });
     },[])
+
     return (
         <div>
 

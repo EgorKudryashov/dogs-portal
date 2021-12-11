@@ -20,8 +20,8 @@ const PublicPage = () => {
     }
 
 
-    const getInfo = ()=> {
-        axios.get('http://localhost:4000/public').then((response)=>{
+    const getInfo = async ()=> {
+        await axios.get('http://localhost:4000/public').then((response)=>{
             setInformation(response.data);
         })
         setActivePage(true);
@@ -38,12 +38,11 @@ const PublicPage = () => {
 
                     <div className='row'>
                         {information.map((item)=>(
-                            <div className='col-4' key={item.id}>
+                            <div className='col-3' key={item.id}>
                                 <div className = 'breed' onClick = {()=>{history.push(`/public/breed/${item.id}`)}}>
                                     <Card
                                         img_path={item.image_path}
                                         title={item.breed_name}
-                                        text={item.info}
                                     />
                                 </div>
                             </div>
