@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 
 const { Users } = require('../models')
 const { secret } = require('../config')
-const { validateAuth } = require('../controllers/authController')
+const { validateAuth, rolesAuth} = require('../controllers/authController')
 
 /* посмотреть транзакции на sequelize  */
 

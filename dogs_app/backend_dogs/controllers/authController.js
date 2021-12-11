@@ -1,5 +1,6 @@
 const { verify }  = require('jsonwebtoken');
 const { secret } = require('../config.js')
+const e = require("express");
 
 const validateAuth = (req, res, next) =>{
     // в заголовке будет токен
@@ -9,10 +10,11 @@ const validateAuth = (req, res, next) =>{
         const validToken = verify(accessToken, secret);
         // в поле req.UserSpecialInfo будет храниться информация, которая закодирована в токене
         // в нашем случае это роль и id пользователя
-        req.UserSpecialInfo = validToken;
         if (validToken) {
+            req.UserSpecialInfo = validToken;
             return next();
         }
+        else { return res.json({error: 'Возникла ошибка'}); }
     }catch(e){
         return res.json({error: 'Возникла ошибка'});
     }
@@ -20,13 +22,25 @@ const validateAuth = (req, res, next) =>{
 
 const rolesAuth = (permission) => {
     return (req, res, next) =>{
-        const UserRole = req.body.role
-        if (permission.includes(UserRole)){
-            next();
-        }else{
-            return res.json({
-                error: "Вы не имеете прав доступа для совершения этого действия"
-            })
+        const accessToken = req.header('accessToken');
+        if (!accessToken) return res.json({ error:"Пользователь не авторизован" })
+
+        try{
+            const validToken = verify(accessToken, secret);
+            if (validToken) {
+                req.UserSpecialInfo = validToken;
+                const UserRole = req.UserSpecialInfo.role
+                if (permission.includes(UserRole)){
+                    next();
+                }else{
+                    return res.json({
+                        error: "Вы не имеете прав доступа для совершения этого действия"
+                    })
+                }
+            }
+            else { return res.json({error: 'Возникла ошибка'}); }
+        }catch(e){
+            return res.json({error: 'Возникла ошибка'});
         }
     }
 }
