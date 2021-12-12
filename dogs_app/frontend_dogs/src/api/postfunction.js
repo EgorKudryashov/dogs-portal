@@ -39,8 +39,13 @@ export const PostLogin = async (data, setAuth)=>{
 
 //Может не делать его await?
 //Запрос на создание новой карточки породы
-export const PostNewBreed = (data)=>{
-    axios.post(`http:${backendPath}/public/create`, data).catch(error => {
-        alert(error.toString());
+export const PostNewBreed = (data) =>{
+    axios.post(`http:${backendPath}/public/create`, data, {
+        headers: {
+            accessToken: localStorage.getItem('accessToken')
+        }
+    }).then((response) => {
+        if (response.data.error) alert(response.data.error)
+        else alert(response.data);
     });
 }

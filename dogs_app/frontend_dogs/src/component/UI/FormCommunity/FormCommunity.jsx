@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
-import axios from "axios";
 import {PostNewBreed} from "../../../api/postfunction";
 
 const FormCommunity = ({setVisible}) => {
-
     const CreateCard = async () =>{
 
         let title = document.getElementById("title").value;
@@ -17,7 +15,8 @@ const FormCommunity = ({setVisible}) => {
         breedData.append('breed', picture)
 
         console.log(breedData)
-        PostNewBreed(breedData);//Post-запрос на создание карточки
+        PostNewBreed(breedData);
+        //Post-запрос на создание карточки
         setVisible(false);
         document.getElementById("title").value = "";
         document.getElementById("text").value = "";

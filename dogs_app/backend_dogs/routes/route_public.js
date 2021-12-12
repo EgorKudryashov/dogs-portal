@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const upload = require('../controllers/imageController.js')
 const { Breeds } = require('../models')
+const {rolesAuth, validateAuth} = require("../controllers/authController");
 
 
 // Получение всех пород
@@ -22,7 +23,9 @@ router.get('/breed/:id', async (req, res)=>{
 
 // Только контент-менеджер и админ
 // могут наполнять главную страницу
-router.post('/create', upload.single('breed'), async (req, res)=>{
+router.post('/create', upload.single('breed'),
+                            async (req, res, next)=>{
+    rolesAuth();
     const data_from_frontend = req.body;
 
     const data_to_DB = {

@@ -28,10 +28,9 @@ const rolesAuth = (permission) => {
         try{
             const validToken = verify(accessToken, secret);
             if (validToken) {
-                req.UserSpecialInfo = validToken;
-                const UserRole = req.UserSpecialInfo.role
+                const UserRole = validToken.role
                 if (permission.includes(UserRole)){
-                    next();
+                    return next();
                 }else{
                     return res.json({
                         error: "Вы не имеете прав доступа для совершения этого действия"
