@@ -4,7 +4,7 @@ import Navbar from "./component/UI/Navbar/navbar";
 import PageRouter from "./component/PageRouter";
 import { AuthContext } from './helpers/authContext';
 import axios from "axios";
-import {GetTokenAuth} from "./api/getfunction";
+import {GetTokenAuth} from "./api/GET";
 
 
 function App() {

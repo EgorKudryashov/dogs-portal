@@ -4,7 +4,7 @@ import Card from "../component/UI/Card/Card";
 import Loader from "../component/UI/Loader/Loader";
 import Search from "../component/UI/Search/Search";
 import Pagination from "../component/UI/Pagination/Pagination";
-import {GetAllBreeds} from "../api/getfunction";
+import {GetAllBreeds} from "../api/GET";
 
 
 const PublicPage = () => {

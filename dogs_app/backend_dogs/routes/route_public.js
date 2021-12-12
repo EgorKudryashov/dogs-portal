@@ -25,7 +25,7 @@ router.get('/breed/:id', async (req, res)=>{
 // могут наполнять главную страницу
 router.post('/create', upload.single('breed'),
                             async (req, res, next)=>{
-    rolesAuth();
+    rolesAuth(['ADMIN', 'MANAGER']);
     const data_from_frontend = req.body;
 
     const data_to_DB = {
@@ -35,6 +35,18 @@ router.post('/create', upload.single('breed'),
     }
     await Breeds.create(data_to_DB);
     res.send('Успешно добавлена новая порода!');
+})
+
+
+// удаление карточки породы
+router.delete('/:breedId', rolesAuth(['ADMIN', 'MANAGER']), (req,res)=>{
+    const breedId = req.params.breedId
+    Breeds.destroy({
+        where: {
+            id: breedId
+        }
+    })
+    res.send('Карточка с породой была удалена!')
 })
 
 module.exports = router

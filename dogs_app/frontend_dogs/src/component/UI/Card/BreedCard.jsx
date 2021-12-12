@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import Like from "../LikeIcon/Like";
 
-
 const BreedCard = ({title, content, image}) => {
 
     const [like,setLike]=useState(false)

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import "./Login.css"
 import { AuthContext } from "../../../helpers/authContext";
-import {PostLogin} from "../../../api/postfunction";
+import {PostLogin} from "../../../api/POST";
 
 function Login(){
     const { setAuthState } = useContext(AuthContext)

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {PostNewBreed} from "../../../api/postfunction";
+import {PostNewBreed} from "../../../api/POST";
 
 const FormCommunity = ({setVisible}) => {
     const CreateCard = async () =>{

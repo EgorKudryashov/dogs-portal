@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import {Formik, Field, Form, ErrorMessage} from 'formik';
 import './Registration.css'
 import { AuthContext } from "../../../helpers/authContext";
-import {PostRegistration} from "../../../api/postfunction";
+import {PostRegistration} from "../../../api/POST";
 
 
 function Registration(){

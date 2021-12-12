@@ -9,14 +9,14 @@ export const GetAllBreeds= async (setInfo)=>{
 }
 
 //Запрос на получение всей информации об определенной породе по её id
-export const GetBreedById = async (setObject, id) => {
-    await axios.get(`http:${backendPath}/public/breed/${id}`).then((response) => {
+export const GetBreedById = (setObject, id) => {
+    axios.get(`http:${backendPath}/public/breed/${id}`).then((response) => {
         setObject (response.data);
     });
 }
 
 //Проверка актуальности токена у авторизированного пользователя
-export const GetTokenAuth = async (auth, setAuth)=>{
+export const GetTokenAuth = (auth, setAuth)=>{
     axios.get(`http:${backendPath}/join/auth`,{
         headers:{
             accessToken: localStorage.getItem('accessToken')
