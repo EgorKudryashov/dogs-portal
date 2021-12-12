@@ -18,8 +18,10 @@ module.exports = (sequelize, DataTypes) => {
      Breeds.associate = (models) => {
           Breeds.belongsToMany(models.Categories, {
               through: "Breed_has_category",
-              onDelete: 'cascade'
           })
+          Breeds.hasMany(models.Likes, {
+             onDelete: "cascade",
+         })
      }
     return Breeds
 }

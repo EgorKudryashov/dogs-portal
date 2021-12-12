@@ -12,7 +12,7 @@ import { Button } from "react-bootstrap";
 const BreedPage = () => {
     let history = useHistory();
     let { id } = useParams();
-    const [breedObject, setBreedObject] = useState({})
+    const [breedObject, setBreedObject] = useState([])
 
     const GetBreed = async ()=>{
         await GetBreedById(setBreedObject, id);
@@ -34,6 +34,7 @@ const BreedPage = () => {
                 content={breedObject.info}
                 image={breedObject.image_path}
                 id = {breedObject.id}
+                likesCount = {breedObject.likes}
             />
             <Button variant="danger" onClick={DeleteBreed}> Удалить </Button>
         </div>

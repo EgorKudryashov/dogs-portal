@@ -13,10 +13,6 @@ module.exports = (sequelize, DataTypes) => {
         info: {
             type: DataTypes.TEXT,
         },
-        avatar_path: {
-            type: DataTypes.STRING,
-            allowNull: true
-        },
         login: {
             unique: true,
             type: DataTypes.STRING(25),
@@ -29,9 +25,13 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
     });
+
     Users.associate = (models) => {
         Users.hasMany(models.Cards, {
             onDelete: 'cascade'
+        })
+        Users.hasMany(models.Likes, {
+            onDelete: "cascade",
         })
     }
     return Users

@@ -49,3 +49,13 @@ export const PostNewBreed = (data) =>{
         else alert(response.data);
     });
 }
+// Поставить лайк или убрать лайк породе (только авторизованные пользователи)
+export const PostNewLike = (BreedId) => {
+    axios.post(`http:${backendPath}/public/like`, {BreedId: BreedId}, {
+        headers: {
+            accessToken: localStorage.getItem('accessToken')
+        }
+    }).then((response)=>{
+        console.log(response.data)
+    })
+}

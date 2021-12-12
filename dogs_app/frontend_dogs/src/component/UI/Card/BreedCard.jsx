@@ -1,9 +1,16 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Like from "../LikeIcon/Like";
 
-const BreedCard = ({title, content, image}) => {
+import {PostNewLike} from "../../../api/POST";
+
+const BreedCard = ({title, content, image, id, likesCount}) => {
 
     const [like,setLike]=useState(false)
+
+    const likeBreed = ()=>{
+        PostNewLike(id)
+        // Поставить лайк или убрать лайк
+    }
 
     return (
         <div className="card border-dark mt-5" style={{"width": "70%", "height":"500px", "marginLeft": "15%", "borderRadius": "20px"}}>
@@ -13,7 +20,8 @@ const BreedCard = ({title, content, image}) => {
                          className="img-thumbnail" alt="*картинка*"
                          style={{'width': '100%', 'height': '80%',"border-radius": "20px"}}
                     />
-                    <Like like={like} setLike={setLike}/>
+                    <div onClick={likeBreed}> <Like like={like} setLike={setLike}/> </div>
+                    <label> {likesCount} </label>
                 </div>
                 <div className="col-md-6">
                     <div style={{"border":"20px","borderColor": "black","borderRadius": "20px", "background":"#FBC940"}}>
