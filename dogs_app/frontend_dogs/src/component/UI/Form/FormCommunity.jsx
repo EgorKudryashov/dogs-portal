@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {PostNewBreed} from "../../../api/POST";
 
 const FormCommunity = ({setVisible}) => {
@@ -15,7 +15,7 @@ const FormCommunity = ({setVisible}) => {
         breedData.append('breed', picture)
 
         console.log(breedData)
-        PostNewBreed(breedData);
+        //Тут надо всунуть запрос для создания карточки пользователя
         //Post-запрос на создание карточки
         setVisible(false);
         document.getElementById("title").value = "";

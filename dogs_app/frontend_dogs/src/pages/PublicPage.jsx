@@ -1,17 +1,24 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { useHistory } from "react-router-dom";
 import Card from "../component/UI/Card/Card";
 import Loader from "../component/UI/Loader/Loader";
 import Search from "../component/UI/Search/Search";
 import Pagination from "../component/UI/Pagination/Pagination";
 import {GetAllBreeds} from "../api/GET";
+import ModalWindow from "../component/UI/ModalWindow/ModalWindow";
+import {AuthContext} from "../helpers/authContext";
+import FormPublic from "../component/UI/Form/FormPublic";
 
 
 const PublicPage = () => {
 
+    const { authState } = useContext(AuthContext);
+    const userRole = ((authState.role==="ADMIN" || authState.role==="MANAGER") ? true : false);
+
     const [activePage, setActivePage]=useState(false);
 
     const [information, setInformation]= useState([])
+    const [activeAddCard, setActiveAddCard] = useState(false);
 
     const [totalPages, setTotalPages]=useState(4);
     const [currentPage, setCurrentPage]=useState(1);
@@ -48,11 +55,31 @@ const PublicPage = () => {
                             </div>
                         ))}
                     </div>
-                    <Pagination
-                        totalPages={totalPages}
-                        page={currentPage}
-                        changePage={ChangePage}
-                    />
+                    <div>
+                        <div className="mt-2">
+                            {userRole
+                                ?
+                                <div>
+                                    <button className="btn-info" style={{borderRadius: 10, fontSize: 18}}
+                                            onClick={() => setActiveAddCard(true)}>
+                                        +Добавить карточку
+                                    </button>
+                                    <ModalWindow
+                                        visible={activeAddCard}
+                                        setVisible={setActiveAddCard}>
+                                        <FormPublic setVisible={setActiveAddCard}/>
+                                    </ModalWindow>
+                                </div>
+                                :
+                                <div/>
+                            }
+                            <Pagination
+                                totalPages={totalPages}
+                                page={currentPage}
+                                changePage={ChangePage}
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
             :
