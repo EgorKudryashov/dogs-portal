@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import ModalWindow from "../component/UI/ModalWindow/ModalWindow";
-import FormCommunity from "../component/UI/FormCommunity/FormCommunity";
+import FormCommunity from "../component/UI/Form/FormCommunity";
 import UserCard from "../component/UI/Card/UserCard";
 import UpperPanel from "../component/UI/UpperPanel/UpperPanel";
 

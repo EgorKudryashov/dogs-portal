@@ -6,8 +6,8 @@ import Search from "../component/UI/Search/Search";
 import Pagination from "../component/UI/Pagination/Pagination";
 import {GetAllBreeds} from "../api/GET";
 import ModalWindow from "../component/UI/ModalWindow/ModalWindow";
-import FormCommunity from "../component/UI/FormCommunity/FormCommunity";
 import {AuthContext} from "../helpers/authContext";
+import FormPublic from "../component/UI/Form/FormPublic";
 
 
 const PublicPage = () => {
@@ -67,7 +67,7 @@ const PublicPage = () => {
                                     <ModalWindow
                                         visible={activeAddCard}
                                         setVisible={setActiveAddCard}>
-                                        <FormCommunity setVisible={setActiveAddCard}/>
+                                        <FormPublic setVisible={setActiveAddCard}/>
                                     </ModalWindow>
                                 </div>
                                 :

@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import classes from './UpperPanel.module.css'
 import {Nav} from "react-bootstrap";
-import ModalWindow from "../ModalWindow/ModalWindow";
-import FormCommunity from "../FormCommunity/FormCommunity";
 
 const UpperPanel = ({setActiveModalForm}) => {
 
