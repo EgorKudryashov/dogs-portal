@@ -10,9 +10,16 @@ const CommunityPage = () => {
     const title = "МОЯ СОБАКА"
     const user = "login1234455"
 
+    const [activeAddCard, setActiveAddCard] = useState(false);
+
     return (
         <div>
-            <UpperPanel/>
+            <div>
+                <UpperPanel setActiveModalForm={setActiveAddCard}/>
+                <ModalWindow visible={activeAddCard} setVisible={setActiveAddCard}>
+                    <FormCommunity setVisible={setActiveAddCard}/>
+                </ModalWindow>
+            </div>
             <div className="container mt-4">
                 <div className="row justify-content-md-center">
                     <div className="col-auto">

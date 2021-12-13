@@ -7,7 +7,7 @@ const UserCard = ({user, title, text, image}) => {
     const [like, setLike] = useState(false);
 
     return (
-        <Card className="card border-dark mt-5" style={{ width: '650px', height: '450px', borderRadius: "20px" }}>
+        <Card className="card border-dark mt-5" style={{ width: '650px', height: '450px', borderRadius: "20px", zIndex: "3" }}>
             <Card.Body className="row">
                 <div className="col-md-6">
                     <Card.Img variant="top" src={`http://localhost:4000/${image}`}
