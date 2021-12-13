@@ -4,6 +4,7 @@ import FormCommunity from "../component/UI/Form/FormCommunity";
 import UserCard from "../component/UI/Card/UserCard";
 import UpperPanel from "../component/UI/UpperPanel/UpperPanel";
 import {AuthContext} from "../helpers/authContext";
+import WarningDeleteUserCard from "../component/UI/WarningsForm/WarningDeleteUserCard";
 
 const CommunityPage = () => {
 
@@ -15,6 +16,11 @@ const CommunityPage = () => {
 
     const [activeAddCard, setActiveAddCard] = useState(false);
 
+    //Информация для удаления карточки
+    const [deleteUserCard, setDeleteUserCard] = useState(false);
+    const [chosenUser, setChosenUser] = useState();
+    const [deleteCardId, setDeleteCardId] = useState();
+
     return (
         userStatus
             ?
@@ -24,6 +30,9 @@ const CommunityPage = () => {
                     <ModalWindow visible={activeAddCard} setVisible={setActiveAddCard}>
                         <FormCommunity setVisible={setActiveAddCard}/>
                     </ModalWindow>
+                    <ModalWindow visible={deleteUserCard} setVisible={setDeleteUserCard}>
+                        <WarningDeleteUserCard setVisible={setDeleteUserCard} user={chosenUser}/>
+                    </ModalWindow>
                 </div>
                 <div className="container mt-4">
                     <div className="row justify-content-md-center">
@@ -32,11 +41,17 @@ const CommunityPage = () => {
                                 title={title}
                                 image={image}
                                 user={user}
+                                setDeleteCard={setDeleteUserCard}
+                                setUser={setChosenUser}
+                                setId={setDeleteCardId}
                             />
                             <UserCard
                                 title={title}
                                 image={"images/1639168534535.jpg"}
-                                user={user}
+                                user={"usericIsteric"}
+                                setDeleteCard={setDeleteUserCard}
+                                setUser={setChosenUser}
+                                setId={setDeleteCardId}
                             />
                         </div>
                     </div>
