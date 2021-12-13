@@ -21,6 +21,8 @@ const joinRouter = require('./routes/route_join')
 app.use("/join", joinRouter)
 
 // Сообщество
+const privateRouter = require('./routes/route_private')
+app.use("/private", privateRouter)
 
 // Профиль пользователя
 
