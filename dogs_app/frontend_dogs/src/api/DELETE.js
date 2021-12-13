@@ -14,3 +14,17 @@ export const DeleteBreedById = (id) => {
         else alert(response.data);
     });
 }
+
+// Запрос на удаление пользовательской карточки по её id
+export const DeleteUserCardById = (id) => {
+    axios.delete(`http:${backendPath}/private/${id}`, {
+        headers: {
+            accessToken: localStorage.getItem('accessToken')
+        }
+    }).then((response) => {
+        if (response.data.error){
+            alert(response.data.error);
+        }
+        else alert(response.data);
+    });
+}

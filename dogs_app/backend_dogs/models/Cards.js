@@ -12,5 +12,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
         },
     });
+    Cards.associate = (models) => {
+        Cards.belongsTo(models.Users, {})
+    }
     return Cards
 }

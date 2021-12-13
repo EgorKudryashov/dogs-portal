@@ -1,19 +1,21 @@
 import axios from "axios";
 const backendPath = '//localhost:4000';
 
-//Запрос на получения всех пород из базы на сайт
+// Запрос на получения всех пород из базы на сайт
 export const GetAllBreeds= async (setInfo)=>{
     await axios.get(`http:${backendPath}/public`).then((response)=>{
         setInfo(response.data);
     })
 }
 
-//Запрос на получение всей информации об определенной породе по её id
+
+// Запрос на получение всей информации об определенной породе по её id
 export const GetBreedById = async (setObject, id) => {
     await axios.get(`http:${backendPath}/public/breed/${id}`).then((response) => {
         setObject (response.data);
     });
 }
+
 
 export const GetDoesUserLikeBreedId = async (setLike, id) => {
     await axios.get(`http:${backendPath}/public/like/${id}`,
@@ -44,4 +46,27 @@ export const GetTokenAuth = (auth, setAuth)=>{
             })
         }
     })
+}
+
+
+// Запрос на получения всех пород из базы на сайт
+export const GetAllCards = async (setInfo)=>{
+    await axios.get(`http:${backendPath}/private`, {
+        headers: {
+            accessToken: localStorage.getItem('accessToken')
+        }
+    }).then((response)=>{
+        setInfo(response.data);
+    })
+}
+
+// Запрос на получение всех карточек конкретного пользователя
+export const GetUserCards = async (setUserInfo, userId) => {
+    await axios.get(`http:${backendPath}/private/${userId}`, {
+        headers: {
+            accessToken: localStorage.getItem('accessToken')
+        }
+    }).then((response) => {
+        setUserInfo(response.data);
+    });
 }

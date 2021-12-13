@@ -37,10 +37,9 @@ export const PostLogin = async (data, setAuth)=>{
     });
 }
 
-//Может не делать его await?
 //Запрос на создание новой карточки породы
-export const PostNewBreed = (data) =>{
-    axios.post(`http:${backendPath}/public/create`, data, {
+export const PostNewBreed = async (data) =>{
+    await axios.post(`http:${backendPath}/public/create`, data, {
         headers: {
             accessToken: localStorage.getItem('accessToken')
         }
@@ -50,12 +49,24 @@ export const PostNewBreed = (data) =>{
     });
 }
 // Поставить лайк или убрать лайк породе (только авторизованные пользователи)
-export const PostNewLike = (BreedId) => {
-    axios.post(`http:${backendPath}/public/like`, {BreedId: BreedId}, {
+export const PostNewLike = async (BreedId) => {
+    await axios.post(`http:${backendPath}/public/like`, {BreedId: BreedId}, {
         headers: {
             accessToken: localStorage.getItem('accessToken')
         }
     }).then((response)=>{
         console.log(response.data)
     })
+}
+
+// Запрос на создание новой карточки пользователя
+export const PostNewCard = (data) =>{
+    axios.post(`http:${backendPath}/private/create`, data, {
+        headers: {
+            accessToken: localStorage.getItem('accessToken')
+        }
+    }).then((response) => {
+        if (response.data.error) alert(response.data.error)
+        else alert(response.data);
+    });
 }
