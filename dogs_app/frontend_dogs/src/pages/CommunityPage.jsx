@@ -10,11 +10,24 @@ const CommunityPage = () => {
 
     const { authState } = useContext(AuthContext);
     const userStatus = (authState.statusOfAuth===true ? true : false);
-    const image = "images/1639166095546.jpg";
-    const title = "МОЯ СОБАКА"
-    const user = "login1234455"
 
     const [activeAddCard, setActiveAddCard] = useState(false);
+    const [cardInformation, setCardInformation] = useState([
+        {
+            user: "login2122",
+            title: "Мой ненаглядный",
+            text: "Я всегда ему рад. Он мой лучший друг",
+            image:"images/1639166095546.jpg",
+            id: "1"
+        },
+        {
+            user: "upalIvstal",
+            title: "Самый страшный",
+            text: "Берегись его опасного языка. Оближет ещё как",
+            image:"images/1639168534535.jpg",
+            id: 2
+        }
+    ]);
 
     //Информация для удаления карточки
     const [deleteUserCard, setDeleteUserCard] = useState(false);
@@ -31,28 +44,24 @@ const CommunityPage = () => {
                         <FormCommunity setVisible={setActiveAddCard}/>
                     </ModalWindow>
                     <ModalWindow visible={deleteUserCard} setVisible={setDeleteUserCard}>
-                        <WarningDeleteUserCard setVisible={setDeleteUserCard} user={chosenUser}/>
+                        <WarningDeleteUserCard setVisible={setDeleteUserCard} user={chosenUser} cardId={deleteCardId}/>
                     </ModalWindow>
                 </div>
                 <div className="container mt-4">
                     <div className="row justify-content-md-center">
                         <div className="col-auto">
-                            <UserCard
-                                title={title}
-                                image={image}
-                                user={user}
-                                setDeleteCard={setDeleteUserCard}
-                                setUser={setChosenUser}
-                                setId={setDeleteCardId}
-                            />
-                            <UserCard
-                                title={title}
-                                image={"images/1639168534535.jpg"}
-                                user={"usericIsteric"}
-                                setDeleteCard={setDeleteUserCard}
-                                setUser={setChosenUser}
-                                setId={setDeleteCardId}
-                            />
+                            {cardInformation.map((item)=>(
+                                <UserCard
+                                    user={item.user}
+                                    title={item.title}
+                                    text={item.text}
+                                    image={item.image}
+                                    cardId={item.id}
+                                    setDeleteCard={setDeleteUserCard}
+                                    setId={setDeleteCardId}
+                                    setUser={setChosenUser}
+                                />
+                            ))}
                         </div>
                     </div>
                 </div>

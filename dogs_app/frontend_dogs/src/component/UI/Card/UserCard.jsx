@@ -3,7 +3,7 @@ import {Button, Card} from "react-bootstrap";
 import Like from "../LikeIcon/Like";
 import {AuthContext} from "../../../helpers/authContext";
 
-const UserCard = ({user, title, text, image, setDeleteCard, setUser, setId}) => {
+const UserCard = ({user, title, text, image, cardId, setDeleteCard, setUser, setId}) => {
 
     const { authState } = useContext(AuthContext);
     const userRole = ((authState.role==="ADMIN" || authState.role==="MODERATOR") ? true : false);
@@ -22,7 +22,7 @@ const UserCard = ({user, title, text, image, setDeleteCard, setUser, setId}) => 
                 <div className="col-md-6">
                     {userRole
                         ?
-                        <div style={{marginLeft: "90%", cursor: "pointer"}} onClick={()=>{setDeleteCard(true); setUser(user); setId(1)}}>
+                        <div style={{marginLeft: "90%", cursor: "pointer"}} onClick={()=>{setDeleteCard(true); setUser(user); setId(cardId)}}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="DarkRed"
                                  className="bi bi-x-circle" viewBox="0 0 20 20">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -37,8 +37,7 @@ const UserCard = ({user, title, text, image, setDeleteCard, setUser, setId}) => 
                         <Card.Title>{title}</Card.Title>
                     </div>
                     <Card.Text>
-                        Some quick example text to build on the card title and make up the bulk of
-                        the card's content.
+                        {text}
                     </Card.Text>
                 </div>
             </Card.Body>

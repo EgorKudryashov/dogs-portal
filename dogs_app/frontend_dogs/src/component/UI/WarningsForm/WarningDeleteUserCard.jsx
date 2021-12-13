@@ -1,6 +1,6 @@
 import React from 'react';
 
-const WarningDeleteUserCard = ({setVisible,user}) => {
+const WarningDeleteUserCard = ({setVisible,user, cardId}) => {
 
     const DeleteCard=()=>{
         console.log("Всех удалю")
