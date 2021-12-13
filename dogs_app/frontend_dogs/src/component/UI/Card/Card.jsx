@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Card = ({img_path, title}) => {
+const Card = ({img_path, title, likes}) => {
 
     return (
         <div className="card border-dark mb-3 " style={{'width': '100%', 'height': '290px', "border-radius": "20px"}}>
@@ -13,6 +13,7 @@ const Card = ({img_path, title}) => {
                 <div className="col-auto">
                     <div className="card-body" style={{"z-index": '3'}}>
                         <h5 className="card-title">{title}</h5>
+                        <p> {likes} </p>
                     </div>
                 </div>
             </div>

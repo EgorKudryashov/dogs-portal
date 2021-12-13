@@ -33,8 +33,7 @@ const BreedPage = () => {
                 title={breedObject.breed_name}
                 content={breedObject.info}
                 image={breedObject.image_path}
-                id = {breedObject.id}
-                likesCount = {breedObject.likes}
+                id = {id}
             />
             <Button variant="danger" onClick={DeleteBreed}> Удалить </Button>
         </div>

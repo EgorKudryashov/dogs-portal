@@ -9,9 +9,20 @@ export const GetAllBreeds= async (setInfo)=>{
 }
 
 //Запрос на получение всей информации об определенной породе по её id
-export const GetBreedById = (setObject, id) => {
-    axios.get(`http:${backendPath}/public/breed/${id}`).then((response) => {
+export const GetBreedById = async (setObject, id) => {
+    await axios.get(`http:${backendPath}/public/breed/${id}`).then((response) => {
         setObject (response.data);
+    });
+}
+
+export const GetDoesUserLikeBreedId = async (setLike, id) => {
+    await axios.get(`http:${backendPath}/public/like/${id}`,
+        {
+            headers:{
+                accessToken: localStorage.getItem('accessToken')
+            }
+        }).then((response) => {
+            setLike(response.data);
     });
 }
 

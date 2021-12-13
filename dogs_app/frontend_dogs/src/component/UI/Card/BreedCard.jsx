@@ -2,14 +2,20 @@ import React, {useEffect, useState} from 'react';
 import Like from "../LikeIcon/Like";
 
 import {PostNewLike} from "../../../api/POST";
+import {GetDoesUserLikeBreedId} from "../../../api/GET";
 
 const BreedCard = ({title, content, image, id, likesCount}) => {
+    const [like, setLike]=useState(false)
 
-    const [like,setLike]=useState(false)
+    // ставил ли пользователь лайк на эту запись?
+    const CheckLike = async ()=>{
+        await GetDoesUserLikeBreedId(setLike,id)
+    }
 
-    const likeBreed = ()=>{
+    useEffect(CheckLike,[])
+
+    const likeBreed = ()=> {
         PostNewLike(id)
-        // Поставить лайк или убрать лайк
     }
 
     return (
@@ -21,7 +27,6 @@ const BreedCard = ({title, content, image, id, likesCount}) => {
                          style={{'width': '100%', 'height': '80%',"border-radius": "20px"}}
                     />
                     <div onClick={likeBreed}> <Like like={like} setLike={setLike}/> </div>
-                    <label> {likesCount} </label>
                 </div>
                 <div className="col-md-6">
                     <div style={{"border":"20px","borderColor": "black","borderRadius": "20px", "background":"#FBC940"}}>

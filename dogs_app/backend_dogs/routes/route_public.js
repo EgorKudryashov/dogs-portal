@@ -10,22 +10,16 @@ const {rolesAuth, validateAuth} = require("../controllers/authController");
 *  (см. итераторы)
 * */
 router.get('/', async (req, res)=>{
-    const listOfBreeds = await Breeds.findAll();
+    const listOfBreeds = await Breeds.findAll({include: [Likes]});
     res.json(listOfBreeds)
 })
 
 // Конкретная порода
 router.get('/breed/:id', async (req, res)=>{
     const id = req.params.id;
-    const id_Breed = await Breeds.findByPk(id, {include: Likes})
-    const data_to_backend = {
-        breed_name: id_Breed.breed_name,
-        image_path: id_Breed.image_path,
-        likes: id_Breed.Likes.length,
-        info: id_Breed.info,
-        id: id_Breed.id
-    }
-    res.json(data_to_backend);
+    const id_Breed = await Breeds.findByPk(id)
+    if (!id_Breed) res.json({error:"Данная порода отсутствует в базе данных"})
+    else res.json(id_Breed);
 })
 
 // Только контент-менеджер и админ
@@ -83,6 +77,25 @@ router.post('/like', validateAuth, async (req, res) => {
             }
         })
         res.send('Вы убрали лайк')
+    }
+})
+
+
+// проверка: ставил ли пользователь лайк или нет
+router.get('/like/:id', validateAuth, async (req, res) => {
+    const BreedId_from_frontend = req.params.id
+    const UserId_from_token = req.UserSpecialInfo.id
+
+    const checking = await Likes.findOne({
+        where: {
+            UserId: UserId_from_token,
+            BreedId: BreedId_from_frontend
+        }
+    })
+    if (!checking){
+        res.send(false)
+    }else{
+        res.send(true)
     }
 })
 

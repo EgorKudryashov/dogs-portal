@@ -42,6 +42,7 @@ const PublicPage = () => {
                                     <Card
                                         img_path={item.image_path}
                                         title={item.breed_name}
+                                        likes={item.Likes.length}
                                     />
                                 </div>
                             </div>
