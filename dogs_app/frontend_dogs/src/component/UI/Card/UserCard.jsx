@@ -13,7 +13,7 @@ const UserCard = ({user, title, text, image, cardId, setDeleteCard, setUser, set
                 <div className="col-md-6" style={{'paddingTop': '2%'}}>
                     <Card.Img variant="top" src={`http://localhost:4000/${image}`}
                               className="img-thumbnail" alt="*картинка*"
-                              style={{'width': '100%', 'height': '80%',"border-radius": "20px"}} />
+                              style={{'width': '100%', 'height': '80%',"maxHeight":"410px","border-radius": "20px"}} />
                     <div className="text-end" style={{color: "gray"}}>
                         <Card.Title>Хозяин: {user}</Card.Title>
                     </div>

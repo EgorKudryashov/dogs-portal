@@ -3,11 +3,11 @@ import React from 'react';
 const Card = ({img_path, title, likes}) => {
 
     return (
-        <div className="card border-dark mb-3 " style={{'width': '100%', 'height': '290px', "border-radius": "20px"}}>
+        <div className="card border-dark mb-3 " style={{'width': '100%', 'height': '290px', "borderRadius": "20px"}}>
             <div  style={{'height':'70%'}}>
                 <img src={`http://localhost:4000/${img_path}`}
                      className="img-thumbnail" alt="*картинка*"
-                     style={{'width': '100%', 'height': '100%', "border-radius": "20px 20px 0px 0px"}}/>
+                     style={{'width': '100%', 'height': '100%', "borderRadius": "20px 20px 0px 0px"}}/>
             </div>
             <div className="row g-0">
                 <div className="col-auto">
