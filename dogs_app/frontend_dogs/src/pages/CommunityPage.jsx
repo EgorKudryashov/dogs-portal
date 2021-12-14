@@ -30,7 +30,7 @@ const CommunityPage = () => {
             ?
             <div>
                 <div>
-                    <UpperPanel setActiveModalForm={setActiveAddCard}/>
+                    <UpperPanel setActiveModalForm={setActiveAddCard} setInformation={setCardInformation}/>
                     <ModalWindow visible={activeAddCard} setVisible={setActiveAddCard}>
                         <FormCommunity setVisible={setActiveAddCard}/>
                     </ModalWindow>

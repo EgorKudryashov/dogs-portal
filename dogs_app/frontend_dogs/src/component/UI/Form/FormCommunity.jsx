@@ -1,22 +1,24 @@
 import React from 'react';
-import {PostNewBreed} from "../../../api/POST";
+import {PostNewCard} from "../../../api/POST";
 
 const FormCommunity = ({setVisible}) => {
-    const CreateCard = async () =>{
+    const CreateUserCard = async () =>{
 
         let title = document.getElementById("title").value;
-        let text = document.getElementById("text").value;
+        let content = document.getElementById("text").value;
         let picture = document.getElementById("picture").files[0];
 
-// то, что отправляется на сервер - это объект breedData
-        const breedData = new FormData()
-        breedData.append('breed_name', title)
-        breedData.append('info', text)
-        breedData.append('breed', picture)
+// то, что отправляется на сервер - это объект cardData
+        const cardData = new FormData()
+        cardData.append('title', title)
+        cardData.append('content', content)
+        cardData.append('card', picture)
 
-        console.log(breedData)
+
         //Тут надо всунуть запрос для создания карточки пользователя
         //Post-запрос на создание карточки
+        await PostNewCard(cardData)
+
         setVisible(false);
         document.getElementById("title").value = "";
         document.getElementById("text").value = "";
@@ -26,7 +28,7 @@ const FormCommunity = ({setVisible}) => {
     return (
         <div>
             <div className="mb-3">
-                <label className="form-label"> Название породы </label>
+                <label className="form-label"> Заголовок карточки </label>
                 <input type="text"
                        className="form-control"
                        id="title"
@@ -34,7 +36,7 @@ const FormCommunity = ({setVisible}) => {
                        autoComplete="off"/>
             </div>
             <div className="mb-3">
-                <label className="form-label"> Описание </label>
+                <label className="form-label"> Содержимое </label>
                 <textarea className="form-control"
                           id="text"
                           rows="3"/>
@@ -44,7 +46,7 @@ const FormCommunity = ({setVisible}) => {
                 <input type="file"
                        className="form-control"
                        id="picture"
-                       name="breed"
+                       name="card"
                 />
             </div>
             <div className="row">
@@ -56,7 +58,7 @@ const FormCommunity = ({setVisible}) => {
                 </div>
                 <div className="col-md-2">
                     <button type="submit" className="btn btn-success" style={{borderRadius: 7}}
-                            onClick={CreateCard} formEncType={'multipart/form-data'}>
+                            onClick={CreateUserCard} formEncType={'multipart/form-data'}>
                         Создать
                     </button>
                 </div>

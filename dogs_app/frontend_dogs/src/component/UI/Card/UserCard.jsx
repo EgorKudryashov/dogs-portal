@@ -1,6 +1,5 @@
 import React, {useContext, useState} from 'react';
 import {Button, Card} from "react-bootstrap";
-import Like from "../LikeIcon/Like";
 import {AuthContext} from "../../../helpers/authContext";
 
 const UserCard = ({user, title, text, image, cardId, setDeleteCard, setUser, setId}) => {

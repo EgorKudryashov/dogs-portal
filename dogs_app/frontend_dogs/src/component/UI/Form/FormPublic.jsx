@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {PostNewBreed} from "../../../api/POST";
 
 const FormPublic = ({setVisible}) => {
@@ -14,8 +14,7 @@ const FormPublic = ({setVisible}) => {
         breedData.append('info', text)
         breedData.append('breed', picture)
 
-        console.log(breedData)
-        PostNewBreed(breedData);
+        await PostNewBreed(breedData)
         //Post-запрос на создание карточки
         setVisible(false);
         document.getElementById("title").value = "";

@@ -8,13 +8,14 @@ const {rolesAuth, validateAuth} = require("../controllers/authController");
 // Все пользовательские карточки
 router.get('/', validateAuth, async (req,res)=> {
     const listOfCards = await Cards.findAll({include: Users});
+
     res.json(listOfCards);
 });
 
 // Все карточки конкретного пользователя
 router.get('/:UserId', validateAuth, async (req,res)=> {
     const UserId = req.params.UserId
-    const UserCards = await Cards.findAll({where: {UserId: UserId}});
+    const UserCards = await Cards.findAll({include: Users, where: {UserId: UserId}});
 
     res.json(UserCards);
 });
