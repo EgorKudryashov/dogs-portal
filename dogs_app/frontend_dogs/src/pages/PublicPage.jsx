@@ -20,18 +20,21 @@ const PublicPage = () => {
     const [information, setInformation]= useState([])
     const [activeAddCard, setActiveAddCard] = useState(false);
 
-    const [totalPages, setTotalPages]=useState(4);
+    //Информация для пагинации
+    const [totalPages, setTotalPages]=useState(1);
+    const limit = 8;
     const [currentPage, setCurrentPage]=useState(1);
+
     function ChangePage (page) {
         setCurrentPage(page)
     }
 
 
     const getInfo = async ()=> {
-        await GetAllBreeds(setInformation);//Запрос на получение всех пород
+        await GetAllBreeds(setInformation, setTotalPages, limit);//Запрос на получение всех пород
         setActivePage(true);
     }
-    useEffect(getInfo,[])
+    useEffect(getInfo,[totalPages])
 
     let history = useHistory()
 
@@ -43,8 +46,10 @@ const PublicPage = () => {
                 <div className="container mt-5">
 
                     <div className='row'>
-                        {information.map((item)=>(
-                            <div className='col-3' key={item.id}>
+                        {information.map((item, index=0)=>(
+                            ((currentPage-1)*limit)<=index && index<((currentPage)*limit)
+                            ?
+                            <div className='col-3' key={++index}>
                                 <div className = 'breed' onClick = {()=>{history.push(`/public/breed/${item.id}`)}}>
                                     <Card
                                         img_path={item.image_path}
@@ -53,6 +58,8 @@ const PublicPage = () => {
                                     />
                                 </div>
                             </div>
+                                :
+                                <div/>
                         ))}
                     </div>
                     <div>

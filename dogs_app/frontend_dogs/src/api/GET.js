@@ -2,9 +2,10 @@ import axios from "axios";
 const backendPath = '//localhost:4000';
 
 // Запрос на получения всех пород из базы на сайт
-export const GetAllBreeds= async (setInfo)=>{
+export const GetAllBreeds= async (setInfo, setLenght, limit)=>{
     await axios.get(`http:${backendPath}/public`).then((response)=>{
         setInfo(response.data);
+        setLenght(Math.ceil(response.data.length/limit))
     })
 }
 
