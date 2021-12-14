@@ -24,7 +24,7 @@ const BreedCard = ({title, content, image, id, likesCount}) => {
                 <div className="col-md-6">
                     <img src={`http://localhost:4000/${image}`}
                          className="img-thumbnail" alt="*картинка*"
-                         style={{'width': '100%', 'height': '80%',"border-radius": "20px"}}
+                         style={{'width': '100%', 'height': '80%', "maxHeight":"420px","border-radius": "20px"}}
                     />
                     <div onClick={likeBreed}> <Like like={like} setLike={setLike}/> </div>
                 </div>
