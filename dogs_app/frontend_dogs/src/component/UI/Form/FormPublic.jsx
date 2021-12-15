@@ -1,7 +1,10 @@
 import React, {useEffect} from 'react';
-import {PostNewBreed} from "../../../api/POST";
+import {PostNewBreed, PostNewCard} from "../../../api/POST";
+import {useAuth0} from "@auth0/auth0-react";
 
 const FormPublic = ({setVisible}) => {
+    const {getAccessTokenSilently} = useAuth0()
+
     const CreateCard = async () =>{
 
         let title = document.getElementById("title").value;
@@ -14,8 +17,13 @@ const FormPublic = ({setVisible}) => {
         breedData.append('info', text)
         breedData.append('breed', picture)
 
-        await PostNewBreed(breedData)
-        //Post-запрос на создание карточки
+        try{
+            const token = await getAccessTokenSilently()
+            await PostNewBreed(breedData, token)
+        }catch(e){
+            console.log('Ошибка при создании карточки')
+        }
+
         setVisible(false);
         document.getElementById("title").value = "";
         document.getElementById("text").value = "";

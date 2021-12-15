@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const upload = require('../controllers/imageController.js')
 const { Users, Cards} = require('../models')
-const {jwtCheck, checkToken, validateAuth} = require("../controllers/authController");
+const {jwtCheck, checkToken, validateAuth, rolesAuth} = require("../controllers/authController");
 
 // Все пользовательские карточки
 router.get('/', jwtCheck, async (req,res)=> {
@@ -38,4 +38,16 @@ router.post('/create', upload.single('card'), jwtCheck, checkToken,
         }
     });
 
+
+// удаление пользовательской карточки (MODERATOR || ADMIN)
+router.delete('/:cardId', jwtCheck, checkToken, rolesAuth(['ADMIN', 'MODERATOR']),
+    async (req, res, next)=>{
+    const CardId = req.params.cardId
+    await Cards.destroy({
+        where: {
+            id: CardId
+        }
+    })
+    res.send('Пользовательская карточка была удалена')
+})
 module.exports = router

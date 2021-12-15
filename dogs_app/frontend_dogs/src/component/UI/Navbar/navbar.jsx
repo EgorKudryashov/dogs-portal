@@ -11,9 +11,8 @@ const Navbar = () => {
     const { authState, setAuthState } = useContext(AuthContext)
     const router = useHistory();
 
-    const login = async ()=>{
-        await loginWithRedirect()
-            router.push('/')
+    const loginPage = ()=>{
+        router.push('/join')
     }
 
     const exit = ()=>{
@@ -45,7 +44,7 @@ const Navbar = () => {
                     Сообщество
                 </Link>
                 { !isAuthenticated ? (
-                    <button className={classes.navbar__button} onClick={login}> Войти </button>
+                    <button className={classes.navbar__button} onClick={loginPage}> Войти </button>
                 ) : (
                     <button className={classes.navbar__button_exit} onClick={exit}> Выйти </button>
                 )}

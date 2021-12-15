@@ -3,6 +3,7 @@ const { secret } = require('../config.js')
 const jwt = require("express-jwt");
 const jwks = require("jwks-rsa");
 const axios = require("axios");
+const { Users } = require('../models')
 
 const jwtCheck = jwt({
     secret: jwks.expressJwtSecret({
@@ -43,14 +44,11 @@ const validateAuth = (req, res, next)=>{
 
 
 const rolesAuth = (permission) => {
-    return (req, res, next) =>{
-        const accessToken = req.header('accessToken');
-        if (!accessToken) return res.json({ error:"Пользователь не авторизован" })
-
+    return async (req, res, next) =>{
         try{
-            const validToken = verify(accessToken, secret);
-            if (validToken) {
-                const UserRole = validToken.role
+            const login = req.UserSpecialInfo.email
+            const candidate = await Users.findOne({where: {login: login}})
+            const UserRole = candidate.role
                 if (permission.includes(UserRole)){
                     return next();
                 }else{
@@ -58,9 +56,7 @@ const rolesAuth = (permission) => {
                         error: "Вы не имеете прав доступа для совершения этого действия"
                     })
                 }
-            }
-            else { return res.json({error: 'Возникла ошибка'}); }
-        }catch(e){
+            }catch(e){
             return res.json({error: 'Возникла ошибка'});
         }
     }

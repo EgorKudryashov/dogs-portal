@@ -1,6 +1,10 @@
 import axios from "axios";
 const backendPath = "//localhost:4000";
 
+
+/*-----------------------------------------------------------------------*/
+/*------------------------Join----------------------------------------*/
+
 //Запрос на регистрацию пользователя на сайте
 export const PostRegistration = async (data, setAuth)=>{
 
@@ -37,27 +41,38 @@ export const PostLogin = async (data, setAuth)=>{
     });
 }
 
+
+/*-----------------------------------------------------------------------*/
+/*------------------------Public----------------------------------------*/
+
 //Запрос на создание новой карточки породы
-export const PostNewBreed = async (data) =>{
+export const PostNewBreed = async (data, token) =>{
     await axios.post(`http:${backendPath}/public/create`, data, {
         headers: {
-            accessToken: localStorage.getItem('accessToken')
+            authorization: `Bearer ${token}`
         }
     }).then((response) => {
         if (response.data.error) alert(response.data.error)
         else alert(response.data);
     });
 }
+
 // Поставить лайк или убрать лайк породе (только авторизованные пользователи)
-export const PostNewLike = async (BreedId) => {
+export const PostNewLike = async (BreedId, token) => {
     await axios.post(`http:${backendPath}/public/like`, {BreedId: BreedId}, {
         headers: {
-            accessToken: localStorage.getItem('accessToken')
+            authorization: `Bearer ${token}`
         }
     }).then((response)=>{
         console.log(response.data)
     })
 }
+
+
+
+/*-----------------------------------------------------------------------*/
+/*------------------------Private----------------------------------------*/
+
 
 // Запрос на создание новой карточки пользователя
 export const PostNewCard = (data, token) =>{

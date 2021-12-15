@@ -1,9 +1,14 @@
 import React from 'react';
+import { useAuth0 } from "@auth0/auth0-react";
+import { DeleteUserCardById } from "../../../api/DELETE";
 
-const WarningDeleteUserCard = ({setVisible,user, cardId}) => {
+const WarningDeleteUserCard = ({setVisible, user, cardId}) => {
+    const { getAccessTokenSilently } = useAuth0()
 
-    const DeleteCard=()=>{
-        console.log("Всех удалю")
+    const DeleteCard = async()=>{
+        const token = await getAccessTokenSilently()
+        await DeleteUserCardById(cardId, token)
+        setVisible(false)
     }
 
     return (

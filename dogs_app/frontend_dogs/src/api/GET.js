@@ -1,6 +1,8 @@
 import axios from "axios";
 const backendPath = '//localhost:4000';
 
+/*-----------------------------------------------------------------------*/
+/*------------------------Public----------------------------------------*/
 
 // Запрос на получения всех пород из базы на сайт
 export const GetAllBreeds= async (setInfo, setLenght, limit)=>{
@@ -18,19 +20,20 @@ export const GetBreedById = async (setObject, id) => {
     });
 }
 
-
-export const GetDoesUserLikeBreedId = async (setLike, id) => {
-    await axios.get(`http:${backendPath}/public/like/${id}`,
-        {
-            headers:{
-                accessToken: localStorage.getItem('accessToken')
-            }
-        }).then((response) => {
+// Ставил ли конкретный пользователь лайк конкретной породе?
+export const GetDoesUserLikeBreedId = async (setLike, id, userid) => {
+    await axios.get(`http:${backendPath}/public/like/${id}`,{headers:{
+            user: userid
+        }}).then((response) => {
             setLike(response.data);
     });
 }
 
-// Запрос на получения всех пород из БД на сайт
+
+/*-----------------------------------------------------------------------*/
+/*------------------------Private----------------------------------------*/
+
+// Запрос на получения всех карточек из БД на сайт
 export const GetAllCards = async (setInfo, token)=>{
     await axios.get(`http:${backendPath}/private`, {
         headers: {
@@ -52,7 +55,9 @@ export const GetUserCards = async (setUserInfo, userId, token) => {
     });
 }
 
-
+/*-----------------------------------------------------------------------*/
+/*------------------------Join----------------------------------------*/
+// Проверка пользователя на авторизацию
 export const GetUserByToken = async (setAuth, token)=>{
     try{
         await axios.get(`http:${backendPath}/join/auth0`,{

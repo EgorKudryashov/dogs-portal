@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
+import CommunityImage from '../images_app/community.jpg';
 import ModalWindow from "../component/UI/ModalWindow/ModalWindow";
 import FormCommunity from "../component/UI/Form/FormCommunity";
 import UserCard from "../component/UI/Card/UserCard";
@@ -7,7 +8,6 @@ import {AuthContext} from "../helpers/authContext";
 import WarningDeleteUserCard from "../component/UI/WarningsForm/WarningDeleteUserCard";
 import {GetAllCards} from "../api/GET";
 import {useAuth0} from "@auth0/auth0-react";
-import Check from '../helpers/auth0check'
 
 
 const CommunityPage = () => {
@@ -34,7 +34,7 @@ const CommunityPage = () => {
     return (
         isAuthenticated
             ?
-            <div>
+            <div style={{backgroundImage: `url(${CommunityImage})`}}>
                 <div>
                     <UpperPanel setActiveModalForm={setActiveAddCard} setInformation={setCardInformation}/>
                     <ModalWindow visible={activeAddCard} setVisible={setActiveAddCard}>

@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from 'react';
 import './pages.css';
-import HomeImage from '../images_app/homeimage.jpg'
+import HomeImage from '../images_app/homeimage.jpg';
 import {useHistory} from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AuthContext } from '../helpers/authContext';

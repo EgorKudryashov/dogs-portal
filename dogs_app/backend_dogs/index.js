@@ -12,7 +12,7 @@ app.use(express.json());
 
 
 // Главная страница
-const publicRouter = require('./routes/route_public')
+const publicRouter = require('./routes/routes_public')
 app.use("/public", publicRouter)
 
 // Присоединиться (регистрация, авторизация)

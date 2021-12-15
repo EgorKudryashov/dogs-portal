@@ -1,21 +1,35 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Like from "../LikeIcon/Like";
 
 import {PostNewLike} from "../../../api/POST";
 import {GetDoesUserLikeBreedId} from "../../../api/GET";
+import {useAuth0} from "@auth0/auth0-react";
+import {AuthContext} from "../../../helpers/authContext";
 
 const BreedCard = ({title, content, image, id, likesCount}) => {
+    const {getAccessTokenSilently} = useAuth0()
+    const {authState} = useContext(AuthContext)
     const [like, setLike]=useState(false)
-
     // ставил ли пользователь лайк на эту запись?
     const CheckLike = async ()=>{
-        await GetDoesUserLikeBreedId(setLike,id)
+        try{
+            console.log(authState.id)
+            const userId = authState.id
+            await GetDoesUserLikeBreedId(setLike, id, userId)
+        }catch(e){
+            console.log('Пользователь не авторизован')
+        }
     }
 
     useEffect(CheckLike,[])
 
-    const likeBreed = ()=> {
-        PostNewLike(id)
+    const likeBreed = async ()=> {
+        try{
+            const token = await getAccessTokenSilently()
+            await PostNewLike(id, token)
+        }catch(e){
+            console.log('Пользователь не авторизован')
+        }
     }
 
     return (

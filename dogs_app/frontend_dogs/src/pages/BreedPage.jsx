@@ -4,12 +4,14 @@ import { useParams, useHistory } from 'react-router-dom'
 import BreedCard from "../component/UI/Card/BreedCard";
 
 import { GetBreedById } from "../api/GET";
-import { DeleteBreedById } from "../api/DELETE";
+import {DeleteBreedById, DeleteUserCardById} from "../api/DELETE";
 
 import { Button } from "react-bootstrap";
+import {useAuth0} from "@auth0/auth0-react";
 
 
 const BreedPage = () => {
+    const {getAccessTokenSilently} = useAuth0()
     let history = useHistory();
     let { id } = useParams();
     const [breedObject, setBreedObject] = useState([])
@@ -20,7 +22,8 @@ const BreedPage = () => {
         //Здесь можно добавить условие на иконку загрузки
     }
     const DeleteBreed = async () => {
-        await DeleteBreedById(id);
+        const token = await getAccessTokenSilently()
+        await DeleteBreedById(id, token)
         history.push('/');
     }
     useEffect(
@@ -28,7 +31,7 @@ const BreedPage = () => {
     )
 
     return (
-        <div>
+        <div className='breedPage'>
             <BreedCard
                 title={breedObject.breed_name}
                 content={breedObject.info}
