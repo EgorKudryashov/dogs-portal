@@ -3,8 +3,9 @@ import {BrowserRouter} from "react-router-dom";
 import Navbar from "./component/UI/Navbar/navbar";
 import PageRouter from "./component/PageRouter";
 import { AuthContext } from './helpers/authContext';
-import axios from "axios";
-import {GetTokenAuth} from "./api/GET";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Auth0Provider } from '@auth0/auth0-react'
+
 
 
 function App() {
@@ -13,20 +14,18 @@ function App() {
         role: "VISITOR",
         statusOfAuth: false
     });
-
-    // Проверка того, авторизован ли пользователь
-    const AccessToken = async ()=>{
-        await GetTokenAuth(authState, setAuthState);//get-Запрос на актуальность токена
-    }
-    useEffect(
-       AccessToken,[]
-    )
-
     return (
         <AuthContext.Provider value={{authState, setAuthState}}>
             <BrowserRouter>
-                <Navbar/>
-                <PageRouter/>
+                <Auth0Provider
+                    domain="dev-zfwjpqk9.us.auth0.com"
+                    clientId="8uvHF1OyNvwq9dTAB1Izae5SwXnCn5nH"
+                    redirectUri={window.location.origin}
+                    audience="dogs_portal"
+                    scope="openid profile email" >
+                    <Navbar/>
+                    <PageRouter/>
+                </Auth0Provider>
             </BrowserRouter>
         </AuthContext.Provider>
   );

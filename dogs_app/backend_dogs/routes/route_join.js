@@ -7,6 +7,7 @@ const { Users } = require('../models')
 const { secret } = require('../config')
 const { validateAuth, rolesAuth} = require('../controllers/authController')
 
+
 /* посмотреть транзакции на sequelize  */
 
 // Регистрация

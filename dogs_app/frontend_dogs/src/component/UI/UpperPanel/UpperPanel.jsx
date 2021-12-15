@@ -3,17 +3,26 @@ import classes from './UpperPanel.module.css'
 import {Nav} from "react-bootstrap";
 import {GetAllCards, GetUserCards} from "../../../api/GET";
 import {AuthContext} from "../../../helpers/authContext";
+import {useAuth0} from "@auth0/auth0-react";
 
 const UpperPanel = ({setActiveModalForm, setInformation}) => {
+    const {isAuthenticated, getAccessTokenSilently} = useAuth0()
     const {authState} = useContext(AuthContext)
     const [activeNav, setActiveNav] = useState(false);
 
     // Карточки
     const GetCards = async (activeNav) => {
-        if (!activeNav){
-            await GetUserCards(setInformation, authState.id)
-        }else{
-            await GetAllCards(setInformation)
+        try{
+            const token = await getAccessTokenSilently()
+            console.log(token)
+            if (!activeNav){
+                console.log(authState)
+                await GetUserCards(setInformation, authState.id, token)
+            }else{
+                await GetAllCards(setInformation, token)
+            }
+        }catch(e){
+            console.log('Ошибка при получение карточек')
         }
     }
 

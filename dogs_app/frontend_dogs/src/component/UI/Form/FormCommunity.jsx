@@ -1,7 +1,10 @@
 import React from 'react';
 import {PostNewCard} from "../../../api/POST";
+import {useAuth0} from "@auth0/auth0-react";
 
 const FormCommunity = ({setVisible}) => {
+    const {getAccessTokenSilently} = useAuth0()
+
     const CreateUserCard = async () =>{
 
         let title = document.getElementById("title").value;
@@ -17,7 +20,13 @@ const FormCommunity = ({setVisible}) => {
 
         //Тут надо всунуть запрос для создания карточки пользователя
         //Post-запрос на создание карточки
-        await PostNewCard(cardData)
+        try{
+            const token = await getAccessTokenSilently()
+            await PostNewCard(cardData, token)
+        }catch(e){
+            console.log('Ошибка при создании карточки')
+        }
+
 
         setVisible(false);
         document.getElementById("title").value = "";

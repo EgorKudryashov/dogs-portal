@@ -6,27 +6,33 @@ import UpperPanel from "../component/UI/UpperPanel/UpperPanel";
 import {AuthContext} from "../helpers/authContext";
 import WarningDeleteUserCard from "../component/UI/WarningsForm/WarningDeleteUserCard";
 import {GetAllCards} from "../api/GET";
+import {useAuth0} from "@auth0/auth0-react";
+import Check from '../helpers/auth0check'
+
 
 const CommunityPage = () => {
-
-    const { authState } = useContext(AuthContext);
+    const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+    const { authState, setAuthState } = useContext(AuthContext);
     const userStatus = (authState.statusOfAuth===true ? true : false);
 
     const [activeAddCard, setActiveAddCard] = useState(false);
     const [cardInformation, setCardInformation] = useState([]);
     const AllCards = async ()=>{
-         await GetAllCards(setCardInformation)
+        try{
+            const token = await getAccessTokenSilently()
+            await GetAllCards(setCardInformation, token)
+        }catch(e){
+            console.log(e)
+        }
     }
-
-    useEffect(AllCards,[])
-
+     useEffect(AllCards,[])
     //Информация для удаления карточки
     const [deleteUserCard, setDeleteUserCard] = useState(false);
     const [chosenUser, setChosenUser] = useState();
     const [deleteCardId, setDeleteCardId] = useState();
 
     return (
-        userStatus
+        isAuthenticated
             ?
             <div>
                 <div>

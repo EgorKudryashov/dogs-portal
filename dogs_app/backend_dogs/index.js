@@ -3,7 +3,6 @@ const cors = require("cors");
 const db = require('./models')
 const app = express();
 
-
 app.use(cors());
 app.use(express.json());
 
@@ -17,11 +16,11 @@ const publicRouter = require('./routes/route_public')
 app.use("/public", publicRouter)
 
 // Присоединиться (регистрация, авторизация)
-const joinRouter = require('./routes/route_join')
+const joinRouter = require('./routes/routes_join')
 app.use("/join", joinRouter)
 
 // Сообщество
-const privateRouter = require('./routes/route_private')
+const privateRouter = require('./routes/routes_private')
 app.use("/private", privateRouter)
 
 // Профиль пользователя

@@ -60,10 +60,10 @@ export const PostNewLike = async (BreedId) => {
 }
 
 // Запрос на создание новой карточки пользователя
-export const PostNewCard = (data) =>{
+export const PostNewCard = (data, token) =>{
     axios.post(`http:${backendPath}/private/create`, data, {
         headers: {
-            accessToken: localStorage.getItem('accessToken')
+            authorization: `Bearer ${token}`
         }
     }).then((response) => {
         if (response.data.error) alert(response.data.error)

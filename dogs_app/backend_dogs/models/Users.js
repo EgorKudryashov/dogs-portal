@@ -8,22 +8,17 @@ module.exports = (sequelize, DataTypes) => {
         role: {
             type: DataTypes.STRING(40),
             allowNull: false,
-            defaultValue: "USER" // ADMIN, MANAGER
-        },
-        info: {
-            type: DataTypes.TEXT,
+            defaultValue: "USER" // ADMIN, MANAGER, MODERATOR
         },
         login: {
             unique: true,
-            type: DataTypes.STRING(25),
-            required: true,
-            allowNull: false
-        },
-        password: {
             type: DataTypes.STRING(),
             required: true,
             allowNull: false
         },
+        avatar_path: {
+            type: DataTypes.STRING(),
+        }
     });
 
     Users.associate = (models) => {

@@ -11,7 +11,6 @@ import FormPublic from "../component/UI/Form/FormPublic";
 
 
 const PublicPage = () => {
-
     const { authState } = useContext(AuthContext);
     const userRole = ((authState.role==="ADMIN" || authState.role==="MANAGER") ? true : false);
 
@@ -28,7 +27,6 @@ const PublicPage = () => {
     function ChangePage (page) {
         setCurrentPage(page)
     }
-
 
     const getInfo = async ()=> {
         await GetAllBreeds(setInformation, setTotalPages, limit);//Запрос на получение всех пород
@@ -69,7 +67,7 @@ const PublicPage = () => {
                                 <div>
                                     <button className="btn-info" style={{borderRadius: 10, fontSize: 18}}
                                             onClick={() => setActiveAddCard(true)}>
-                                        +Добавить карточку
+                                        + Добавить карточку
                                     </button>
                                     <ModalWindow
                                         visible={activeAddCard}

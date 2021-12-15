@@ -3,21 +3,28 @@ import classes from "./navbar.module.css";
 import {useHistory, Link} from "react-router-dom";
 import {MdPets} from 'react-icons/md';
 import { AuthContext } from "../../../helpers/authContext";
-
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 const Navbar = () => {
+    const { loginWithPopup, loginWithRedirect, logout, isAuthenticated } = useAuth0()
     const { authState, setAuthState } = useContext(AuthContext)
     const router = useHistory();
-    const logout = ()=>{
-        // при нажатии на "выйти" токен удаляется
-        localStorage.removeItem("accessToken");
-        alert('Вы вышли из системы')
+
+    const login = async ()=>{
+        await loginWithRedirect()
+            router.push('/')
+    }
+
+    const exit = ()=>{
         setAuthState({
             id: 0,
             role: "VISITOR",
             statusOfAuth: false
         })
+        console.log('Данные сменились')
+        logout();
+        alert('Вы вышли из системы')
     }
 
     return (
@@ -27,16 +34,20 @@ const Navbar = () => {
 
             </Link>
             <div className={classes.navbar__links}>
+                {isAuthenticated ? (
+                    <Link to='/ProfilePage' className={classes.navbar__element}>
+                        Профиль</Link> )
+                    : (<></>)}
                 <Link to='/public' className={classes.navbar__element}>
                     Главная
                 </Link>
                 <Link to='/community' className={classes.navbar__element}>
                     Сообщество
                 </Link>
-                { !authState.statusOfAuth ? (
-                    <button className={classes.navbar__button} onClick={()=>{router.push("/join")}}> Войти </button>
+                { !isAuthenticated ? (
+                    <button className={classes.navbar__button} onClick={login}> Войти </button>
                 ) : (
-                    <button className={classes.navbar__button_exit} onClick={logout}> Выйти </button>
+                    <button className={classes.navbar__button_exit} onClick={exit}> Выйти </button>
                 )}
 
             </div>
