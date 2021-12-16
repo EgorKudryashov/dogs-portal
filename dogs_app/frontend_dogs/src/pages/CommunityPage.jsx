@@ -20,23 +20,62 @@ const CommunityPage = () => {
     const AllCards = async ()=>{
         try{
             const token = await getAccessTokenSilently()
-            await GetAllCards(setCardInformation, token)
+            await GetAllCards(setCardInformation, token, setTotalPages, limit)
         }catch(e){
             console.log(e)
         }
     }
      useEffect(AllCards,[])
+
     //Информация для удаления карточки
     const [deleteUserCard, setDeleteUserCard] = useState(false);
     const [chosenUser, setChosenUser] = useState();
     const [deleteCardId, setDeleteCardId] = useState();
+
+    ///////////////////////////////////Информация для скроллинга
+    const [totalPages, setTotalPages]=useState(1);
+    const limit = 2;
+    const [currentPage, setCurrentPage]=useState(1);
+    const [fetching, setFetching] = useState(true)
+
+    function ChangePage (page) {
+        setCurrentPage(page)
+    }
+
+    useEffect(()=>{
+        if (fetching) {
+            ChangePage(currentPage + 1);
+        }
+        setFetching(false);
+    },[fetching])
+
+    useEffect(()=>{
+        document.addEventListener('scroll',scrollHandler)
+        return function (){
+            document.removeEventListener('scroll',scrollHandler)
+        }
+    },[])
+
+    const scrollHandler = (e)=>{
+        if ((e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight)) < 20
+        && (currentPage <= totalPages))
+        {
+            setFetching(true);
+        }
+    }
+    //////////////////////////Конец скроллинга
 
     return (
         isAuthenticated
             ?
             <div style={{backgroundImage: `url(${CommunityImage})`}}>
                 <div>
-                    <UpperPanel setActiveModalForm={setActiveAddCard} setInformation={setCardInformation}/>
+                    <UpperPanel setActiveModalForm={setActiveAddCard}
+                                setInformation={setCardInformation}
+                                setPage={setCurrentPage}
+                                setTotalPage={setTotalPages}
+                                limit={limit}
+                    />
                     <ModalWindow visible={activeAddCard} setVisible={setActiveAddCard}>
                         <FormCommunity setVisible={setActiveAddCard}/>
                     </ModalWindow>
@@ -47,21 +86,28 @@ const CommunityPage = () => {
                 <div className="container mt-4">
                     <div className="row justify-content-md-center">
                         <div className="col-auto">
-                            {cardInformation.map((item)=>(
-                                 <UserCard
-                                     user={item.User.username}
-                                     title={item.title}
-                                     text={item.content}
-                                     image={item.image}
-                                     cardId={item.id}
-                                     setDeleteCard={setDeleteUserCard}
-                                     setId={setDeleteCardId}
-                                     setUser={setChosenUser}
-                                 />
+                            {cardInformation.map((item, index=0)=>(
+                                index<((currentPage)*limit)
+                                    ?
+                                    <div key={++index}>
+                                        <UserCard
+                                            user={item.User.username}
+                                            title={item.title}
+                                            text={item.content}
+                                            image={item.image}
+                                            cardId={item.id}
+                                            setDeleteCard={setDeleteUserCard}
+                                            setId={setDeleteCardId}
+                                            setUser={setChosenUser}
+                                        />
+                                    </div>
+                                    :
+                                    <div/>
                             ))}
                         </div>
                     </div>
                 </div>
+
             </div>
             :
             <div style={{marginTop:"10%", marginLeft:"25%"}}>

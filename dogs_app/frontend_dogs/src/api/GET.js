@@ -34,24 +34,26 @@ export const GetDoesUserLikeBreedId = async (setLike, id, userid) => {
 /*------------------------Private----------------------------------------*/
 
 // Запрос на получения всех карточек из БД на сайт
-export const GetAllCards = async (setInfo, token)=>{
+export const GetAllCards = async (setInfo, token, setLenght, limit)=>{
     await axios.get(`http:${backendPath}/private`, {
         headers: {
             authorization: `Bearer ${token}`
         }
     }).then((response)=>{
         setInfo(response.data);
+        setLenght(Math.ceil(response.data.length/limit))
     })
 }
 
 // Запрос на получение всех карточек конкретного пользователя
-export const GetUserCards = async (setUserInfo, userId, token) => {
+export const GetUserCards = async (setUserInfo, userId, token, setLenght, limit) => {
     await axios.get(`http:${backendPath}/private/${userId}`, {
         headers: {
             authorization: `Bearer ${token}`
         }
     }).then((response) => {
         setUserInfo(response.data);
+        setLenght(Math.ceil(response.data.length/limit));
     });
 }
 

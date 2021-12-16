@@ -5,7 +5,7 @@ import {GetAllCards, GetUserCards} from "../../../api/GET";
 import {AuthContext} from "../../../helpers/authContext";
 import {useAuth0} from "@auth0/auth0-react";
 
-const UpperPanel = ({setActiveModalForm, setInformation}) => {
+const UpperPanel = ({setActiveModalForm, setInformation, setPage, setTotalPage, limit}) => {
     const {isAuthenticated, getAccessTokenSilently} = useAuth0()
     const {authState} = useContext(AuthContext)
     const [activeNav, setActiveNav] = useState(false);
@@ -13,13 +13,14 @@ const UpperPanel = ({setActiveModalForm, setInformation}) => {
     // Карточки
     const GetCards = async (activeNav) => {
         try{
+            await setPage(1);
             const token = await getAccessTokenSilently()
             console.log(token)
             if (!activeNav){
                 console.log(authState)
-                await GetUserCards(setInformation, authState.id, token)
+                await GetUserCards(setInformation, authState.id, token, setTotalPage, limit)
             }else{
-                await GetAllCards(setInformation, token)
+                await GetAllCards(setInformation, token, setTotalPage, limit)
             }
         }catch(e){
             console.log('Ошибка при получение карточек')
