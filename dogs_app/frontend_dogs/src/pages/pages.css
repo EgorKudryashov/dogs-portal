@@ -92,26 +92,53 @@
 
 
 /*------------------------------------JOIN-PAGE--------------------------------------*/
-.joinPage {
-    background-color: #4CC096;
-    background-repeat: repeat;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100%;
+
+
+.joinPage{}
+
+.joinPage .carousel-caption{
+    bottom: 220px;
 }
-.forms{
-    margin-top: 2%;
-}
-.leftSide {
-    flex: 50%;
-    margin-left: 5%;
-    margin-top: 2%;
-    height: calc(100vh - 10px);
-    display: grid;
-    place-items: center;
+.joinPage .carousel-caption h1{
+    -webkit-text-stroke: 2px #FFFFFF;
+    color: #4CC096;
+    font-size: 70px;
+    letter-spacing: 5px;
+    margin-top: 5px;
+    font-weight:900;
+    font-family: "Arial Black";
 }
 
-.forms .rightSide {
-    margin-top: 5%;
+.joinPage .carousel-caption p{
+    font-size: 25px;
+    font-family: Consolas;
+    margin-bottom: 5px;
+}
+.joinPage .carousel-caption button{
+    border: none;
+    font-size: 25px;
+    font-family: "Arial Black";
+    padding: 10px 20px;
+    display: inline-block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    background-color: #FBC940;
+    color: #FFFFFF;
+    border-radius: 30px;
+    transition: transform .4s;
+}
+.joinPage .carousel-caption button:hover{
+    box-shadow: 0px 1px 2px 0 #Ffffff;
+    transform: scale(1.03);
+}
+.joinPage #slide1 {
+    bottom: 340px;
+    text-align: center;
+}
+.joinPage #slide2 {
+    text-align: left;
+}
+.joinPage #slide3 {
+    bottom: 290px;
+    text-align: right;
 }

@@ -22,9 +22,13 @@ const BreedPage = () => {
         //Здесь можно добавить условие на иконку загрузки
     }
     const DeleteBreed = async () => {
-        const token = await getAccessTokenSilently()
-        await DeleteBreedById(id, token)
-        history.push('/');
+        try{
+            const token = await getAccessTokenSilently()
+            await DeleteBreedById(id, token)
+            history.push('/');
+        }catch(e){
+            alert('Возникла ошибка')
+        }
     }
     useEffect(
         GetBreed,[]

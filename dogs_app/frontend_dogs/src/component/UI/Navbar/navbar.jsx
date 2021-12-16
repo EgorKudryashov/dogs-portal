@@ -44,7 +44,7 @@ const Navbar = () => {
                     Сообщество
                 </Link>
                 { !isAuthenticated ? (
-                    <button className={classes.navbar__button} onClick={loginPage}> Войти </button>
+                    <button className={classes.navbar__button} onClick={loginPage}> WOOF </button>
                 ) : (
                     <button className={classes.navbar__button_exit} onClick={exit}> Выйти </button>
                 )}
