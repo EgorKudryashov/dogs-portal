@@ -59,13 +59,17 @@ export const PostNewBreed = async (data, token) =>{
 
 // Поставить лайк или убрать лайк породе (только авторизованные пользователи)
 export const PostNewLike = async (BreedId, token) => {
-    await axios.post(`http:${backendPath}/public/like`, {BreedId: BreedId}, {
-        headers: {
-            authorization: `Bearer ${token}`
-        }
-    }).then((response)=>{
-        console.log(response.data)
-    })
+    try{
+        await axios.post(`http:${backendPath}/public/like`, {BreedId: BreedId}, {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        }).then((response)=>{
+            console.log(response.data)
+        })
+    }catch(e){
+        alert('Возникла ошибка')
+    }
 }
 
 

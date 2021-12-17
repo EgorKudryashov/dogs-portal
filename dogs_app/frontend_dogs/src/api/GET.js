@@ -6,18 +6,30 @@ const backendPath = '//localhost:4000';
 
 // Запрос на получения всех пород из базы на сайт
 export const GetAllBreeds= async (setInfo, setLenght, limit)=>{
-    await axios.get(`http:${backendPath}/public`).then((response)=>{
-        setInfo(response.data);
-        setLenght(Math.ceil(response.data.length/limit))
-    })
+    try{
+        await axios.get(`http:${backendPath}/public`).then((response)=>{
+            setInfo(response.data);
+            setLenght(Math.ceil(response.data.length/limit))
+        })
+    }catch(e){
+        alert('Возникла ошибка')
+    }
 }
 
 
 // Запрос на получение всей информации об определенной породе по её id
 export const GetBreedById = async (setObject, id) => {
-    await axios.get(`http:${backendPath}/public/breed/${id}`).then((response) => {
-        setObject (response.data);
-    });
+    try{
+        await axios.get(`http:${backendPath}/public/breed/${id}`).then((response) => {
+            if (!response.data.error) {
+                setObject(response.data);
+            }else{
+                alert(response.data.error);
+            }
+        });
+    }catch(e){
+        alert('Возникла ошибка')
+    }
 }
 
 // Ставил ли конкретный пользователь лайк конкретной породе?
@@ -75,9 +87,12 @@ export const GetUserByToken = async (setAuth, token)=>{
                     statusOfAuth: true,
                 })
             }
+            else{
+                alert(response.data.error)
+            }
         })
     }catch(e){
-        console.log('error with auth')
+        console.log('Ошибка входа')
     }
 }
 

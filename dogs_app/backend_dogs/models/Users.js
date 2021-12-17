@@ -24,6 +24,11 @@ module.exports = (sequelize, DataTypes) => {
                 }
             }
         },
+        role: {
+            type: DataTypes.STRING(10), // USER, MANAGER, MODERATOR, ADMIN
+            allowNull: false,
+            defaultValue: 'USER'
+        },
         avatar_path: {
             type: DataTypes.STRING(),
             allowNull: true
@@ -40,9 +45,6 @@ module.exports = (sequelize, DataTypes) => {
             through: 'User_like_breed',
             onDelete: "cascade",
             timestamps: false,
-        })
-        Users.hasOne(models.Roles, {
-            onDelete: 'cascade'
         })
     }
     return Users

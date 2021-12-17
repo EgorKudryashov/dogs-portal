@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
         },
         count:{
             type: DataTypes.INTEGER,
-            allowNull: true
+            allowNull: true,
+            defaultValue: 0,
         },
     }, {
         timestamps: false

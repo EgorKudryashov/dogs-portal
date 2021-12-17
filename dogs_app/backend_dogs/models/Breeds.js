@@ -1,6 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
     const Breeds = sequelize.define('Breeds', {
         breed_name: {
+            unique: true,
             type: DataTypes.STRING(100),
             allowNull: false,
             required: true,

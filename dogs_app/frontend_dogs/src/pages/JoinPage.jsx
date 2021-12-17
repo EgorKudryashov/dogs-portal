@@ -51,7 +51,6 @@ const JoinPage = () => {
                     />
                     <Carousel.Caption id="slide1" >
                         <h1> Dogs portal </h1>
-                        <button onClick={SignIn}> Присоединиться </button>
                     </Carousel.Caption>
                 </Carousel.Item>
 
