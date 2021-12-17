@@ -2,24 +2,44 @@ module.exports = (sequelize, DataTypes) => {
     const Breeds = sequelize.define('Breeds', {
         breed_name: {
             type: DataTypes.STRING(100),
-            allowNull: false
+            allowNull: false,
+            required: true,
+            validate: {
+                notNull: {
+                    msg: 'Название породы - обязательный атрибут'
+                }
+            }
         },
         info: {
             type: DataTypes.TEXT,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notNull: {
+                    msg: 'Информация о породе - обязательный атрибут'
+                }
+            }
         },
         image_path: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notNull: {
+                    msg: 'Изображение необходимо'
+                }
+            }
         },
+    },{
+        timestamps: false
     });
 
     /*  Транзакции здесь  */
      Breeds.associate = (models) => {
-          Breeds.belongsToMany(models.Categories, {
-              through: "Breed_has_category",
+          Breeds.belongsToMany(models.Users, {
+              through: "User_like_breed",
+              onDelete: 'cascade',
+              timestamps: false
           })
-          Breeds.hasMany(models.Likes, {
+          Breeds.hasOne(models.Likes, {
              onDelete: "cascade",
          })
      }

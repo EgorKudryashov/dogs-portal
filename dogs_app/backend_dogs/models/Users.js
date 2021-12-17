@@ -3,30 +3,46 @@ module.exports = (sequelize, DataTypes) => {
         username: {
             type: DataTypes.STRING(100),
             allowNull: false,
-            required: true
-        },
-        role: {
-            type: DataTypes.STRING(40),
-            allowNull: false,
-            defaultValue: "USER" // ADMIN, MANAGER, MODERATOR
+            required: true,
+            validate: {
+                notNull: {
+                    msg: 'Имя пользователя - обязательный атрибут'
+                }
+            }
         },
         login: {
             unique: true,
             type: DataTypes.STRING(),
             required: true,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                isEmail: {
+                    msg: 'Логин должен иметь формат Email'
+                },
+                notNull:{
+                    msg: 'Логин - обязательный атрибут'
+                }
+            }
         },
         avatar_path: {
             type: DataTypes.STRING(),
+            allowNull: true
         }
+    },{
+        timestamps: false
     });
 
     Users.associate = (models) => {
         Users.hasMany(models.Cards, {
-            onDelete: 'cascade'
+            onDelete: 'set null'
         })
-        Users.hasMany(models.Likes, {
+        Users.belongsToMany(models.Breeds, {
+            through: 'User_like_breed',
             onDelete: "cascade",
+            timestamps: false,
+        })
+        Users.hasOne(models.Roles, {
+            onDelete: 'cascade'
         })
     }
     return Users
