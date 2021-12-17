@@ -28,11 +28,13 @@ router.get('/auth0', jwtCheck, async (req, res)=>{
                 login: login,
                 avatar_path: userInfo.data.picture
             }
-            await Users.create(data_to_database)
-            const candidate = await Users.findOne({where: {login: login}})
+            const user = await Users.create(data_to_database);
+            res.json(user)
         }
-        // на фронт отправляем информацию о пользователе
-        res.json(candidate)
+        else{
+            // на фронт отправляем информацию о пользователе
+            res.json(candidate)
+        }
     }catch(e){
         res.json({error: "Возникла ошибка при добавлении нового пользователя. Проверьте свои данные."})
     }
