@@ -8,6 +8,7 @@ import {AuthContext} from "../helpers/authContext";
 import WarningDeleteUserCard from "../component/UI/WarningsForm/WarningDeleteUserCard";
 import {GetAllCards} from "../api/GET";
 import {useAuth0} from "@auth0/auth0-react";
+import {Scrolling} from "../component/UI/scrolling";
 
 
 const CommunityPage = () => {
@@ -42,27 +43,7 @@ const CommunityPage = () => {
         setCurrentPage(page)
     }
 
-    useEffect(()=>{
-        if (fetching) {
-            ChangePage(currentPage + 1);
-        }
-        setFetching(false);
-    },[fetching])
-
-    useEffect(()=>{
-        document.addEventListener('scroll',scrollHandler)
-        return function (){
-            document.removeEventListener('scroll',scrollHandler)
-        }
-    },[])
-
-    const scrollHandler = (e)=>{
-        if ((e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight)) < 20
-        && (currentPage <= totalPages))
-        {
-            setFetching(true);
-        }
-    }
+    Scrolling(fetching, setFetching, currentPage,totalPages,ChangePage)
     //////////////////////////Конец скроллинга
 
     return (
