@@ -4,6 +4,7 @@ const upload = require('../controllers/imageController.js')
 const { Users, Breeds, Likes, User_like_breed} = require('../models')
 const {rolesAuth, jwtCheck, checkToken} = require("../controllers/authController");
 const db = require('../models')
+const { Op } = require("sequelize");
 
 
 
@@ -52,7 +53,13 @@ router.get('/breed/:id', async (req, res)=>{
 // Поиск породы по названию
 router.post('/search',async (req, res)=>{
     const breedName = req.body.BreedName;
-    const breed_candidate = await Breeds.findOne({where: {breed_name: breedName}})
+    const breed_candidate = await Breeds.findAll({
+        where: {
+            breed_name: {
+                [Op.startsWith]: breedName
+            }
+        }
+    })
     if (!breed_candidate){
         res.json({error:'Такой породы нет в базе данных!'})
     }else{
