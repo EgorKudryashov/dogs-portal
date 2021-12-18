@@ -16,6 +16,16 @@ export const GetAllBreeds= async (setInfo, setLenght, limit)=>{
     }
 }
 
+export const GetAllBreedsSorted = async (setInfo, setLenght, limit) =>{
+    try{
+        await axios.get(`http:${backendPath}/public/sort`).then((response)=>{
+            setInfo(response.data);
+            setLenght(Math.ceil(response.data.length/limit))
+        })
+    }catch(e){
+        alert('Возникла ошибка')
+    }
+}
 
 // Запрос на получение всей информации об определенной породе по её id
 export const GetBreedById = async (setObject, id) => {

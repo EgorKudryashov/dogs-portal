@@ -72,7 +72,20 @@ export const PostNewLike = async (BreedId, token) => {
     }
 }
 
-
+// Поиск породы по названию
+export const SearchBreed = async (setObject, BreedName)=>{
+    try{
+        await axios.post(`http:${backendPath}/public/search`, {BreedName: BreedName}).then((response) => {
+            if (!response.data.error) {
+                setObject(response.data);
+            }else{
+                alert(response.data.error);
+            }
+        });
+    }catch(e){
+        alert('Возникла ошибка')
+    }
+}
 
 /*-----------------------------------------------------------------------*/
 /*------------------------Private----------------------------------------*/

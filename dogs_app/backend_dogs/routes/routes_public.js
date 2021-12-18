@@ -24,12 +24,40 @@ router.get('/', async (req, res)=>{
     res.json(listOfBreeds)
 })
 
+// Получение всех пород в отсортированном по лайкам порядке
+router.get('/sort', async (req, res)=>{
+    const listOfBreeds = await Breeds.findAll({
+        include: {
+            model: Likes,
+            attributes:{
+                exclude: ['BreedId'],
+            },
+            order: ['count, ASC']
+        },
+        attributes:{
+            exclude: ['info'],
+        }
+    });
+    res.json(listOfBreeds)
+})
+
 // Получение конкретной породы
 router.get('/breed/:id', async (req, res)=>{
     const id = req.params.id;
     const id_Breed = await Breeds.findByPk(id)
     if (!id_Breed) res.json({error:"Данная порода отсутствует в базе данных"})
     else res.json(id_Breed);
+})
+
+// Поиск породы по названию
+router.post('/search',async (req, res)=>{
+    const breedName = req.body.BreedName;
+    const breed_candidate = await Breeds.findOne({where: {breed_name: breedName}})
+    if (!breed_candidate){
+        res.json({error:'Такой породы нет в базе данных!'})
+    }else{
+        res.json(breed_candidate)
+    }
 })
 
 // Создание породы
