@@ -28,16 +28,16 @@ router.get('/', async (req, res)=>{
 // Получение всех пород в отсортированном по лайкам порядке
 router.get('/sort', async (req, res)=>{
     const listOfBreeds = await Breeds.findAll({
+        order: [[Likes, "count", "DESC"]],
         include: {
             model: Likes,
             attributes:{
                 exclude: ['BreedId'],
             },
-            order: [['count', 'ASC']]
         },
         attributes:{
             exclude: ['info'],
-        }
+        },
     });
     res.json(listOfBreeds)
 })

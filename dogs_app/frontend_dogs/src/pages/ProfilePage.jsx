@@ -1,20 +1,51 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
-import { AuthContext } from '../helpers/authContext';
 import {Image, Button, Row, Container, Col, Badge} from "react-bootstrap";
 import {MdPets} from "react-icons/md";
 import CommunityImage from "../images_app/community.jpg";
 import {useParams} from "react-router-dom";
 import {GetUserById, GetUserCards} from "../api/GET";
+import ProfileUserCard from "../component/UI/Card/ProfileUserCard";
+import {Scrolling} from "../component/UI/scrolling";
 
 
 const ProfilePage = () => {
+
     let { id } = useParams();
+    const {getAccessTokenSilently} = useAuth0()
+
     const { isAuthenticated } = useAuth0()
     const [userInfo, setUserInfo] = useState({})
     const getUserInfo = async ()=>{
         await GetUserById(setUserInfo, id)
     }
+
+    //Карточки
+    const [activeShowUserCards, setActiveShowUserCards]=useState(false)
+    const [userCards, setUserCards] = useState();
+
+    //Скроллинг
+    const [currentPage, setCurrentPage]=useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [fetching, setFetching] =useState(true);
+    const limit = 2;
+
+    const ChangePage=(page)=>{
+        setCurrentPage(page)
+    }
+
+    Scrolling(fetching, setFetching, currentPage, totalPages, ChangePage)
+    //////////////////////////////
+
+    const ShowUserCards = async ()=>{
+        setActiveShowUserCards(false);
+        const token = await getAccessTokenSilently()
+        await GetUserCards(setUserCards, id, token, setTotalPages, limit)
+        setActiveShowUserCards(true);
+        console.log(totalPages)
+    }
+
+
     useEffect(getUserInfo, [])
     if (!isAuthenticated) return (
         <div>
@@ -46,9 +77,35 @@ const ProfilePage = () => {
                     </Container>
                 </div>
                 <div className='list_of_cards'>
-                    <Button variant="warning" style={{'height':'50px', 'width':'600px'}}>
+                    <Button
+                        variant="warning" style={{'height':'50px', 'width':'600px'}}
+                        onClick={ShowUserCards}>
                         <MdPets /> Показать карточки пользователя
                     </Button>
+                    { activeShowUserCards
+                        ?
+                        <div className="container mt-4">
+                            <div className="row justify-content-md-center">
+                                <div className="col-auto">
+                                    {userCards.map((item, index=0)=>(
+                                        index<((currentPage)*limit)
+                                            ?
+                                            <div key={++index} className='breed'>
+                                                <ProfileUserCard
+                                                    title={item.title}
+                                                    text={item.content}
+                                                    image={item.image}
+                                                />
+                                            </div>
+                                            :
+                                            <div/>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                        :
+                        <div/>
+                    }
                 </div>
             </div>
         );
