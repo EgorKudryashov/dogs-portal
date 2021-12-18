@@ -33,3 +33,15 @@
     font-size: 24px;
     color: black;
 }
+.search__sort__button{
+    display: flex;
+    position: sticky;
+    border-radius: 10px;
+    background-color: #F6EA5A;
+    cursor: pointer;
+
+    font-family: "Consolas", serif;
+    font-style: normal;
+    font-size: 18px;
+    color: black;
+}

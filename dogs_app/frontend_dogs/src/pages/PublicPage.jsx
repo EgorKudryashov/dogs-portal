@@ -40,7 +40,13 @@ const PublicPage = () => {
         activePage
             ?
             <div>
-                <Search/>
+                <Search
+                    setInfo={setInformation}
+                    setTotalInfo={setTotalPages}
+                    setPage={setCurrentPage}
+                    limit={limit}
+                    isLoading={setActivePage}
+                />
                 <div className="container mt-5">
 
                     <div className='row'>
