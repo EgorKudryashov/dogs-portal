@@ -33,7 +33,7 @@ router.get('/sort', async (req, res)=>{
             attributes:{
                 exclude: ['BreedId'],
             },
-            order: ['count, ASC']
+            order: [['count', 'ASC']]
         },
         attributes:{
             exclude: ['info'],
@@ -58,7 +58,13 @@ router.post('/search',async (req, res)=>{
             breed_name: {
                 [Op.startsWith]: breedName
             }
-        }
+        },
+        include: {
+            model: Likes,
+            attributes:{
+                exclude: ['BreedId'],
+            }
+        },
     })
     if (!breed_candidate){
         res.json({error:'Такой породы нет в базе данных!'})

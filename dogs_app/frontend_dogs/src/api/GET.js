@@ -21,6 +21,7 @@ export const GetAllBreedsSorted = async (setInfo, setLenght, limit) =>{
         await axios.get(`http:${backendPath}/public/sort`).then((response)=>{
             setInfo(response.data);
             setLenght(Math.ceil(response.data.length/limit))
+            console.log(response.data)
         })
     }catch(e){
         alert('Возникла ошибка')

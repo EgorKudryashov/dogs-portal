@@ -73,11 +73,12 @@ export const PostNewLike = async (BreedId, token) => {
 }
 
 // Поиск породы по названию
-export const SearchBreed = async (setObject, BreedName)=>{
+export const SearchBreed = async (setObject, BreedName, setTotalPage, limit)=>{
     try{
         await axios.post(`http:${backendPath}/public/search`, {BreedName: BreedName}).then((response) => {
             if (!response.data.error) {
                 setObject(response.data);
+                setTotalPage(Math.ceil(response.data.length/limit))
             }else{
                 alert(response.data.error);
             }
