@@ -17,6 +17,13 @@ router.get('/:UserId', jwtCheck, async (req,res)=> {
     res.json(UserCards);
 });
 
+// Получение информации о пользователе
+router.get('/user/:id', async (req, res)=>{
+    const UserId = req.params.id
+    const candidate = await Users.findByPk(UserId)
+    if (candidate) {res.json(candidate)}
+    else {res.json({error:'Пользователя нет в БД'})}
+})
 
 
 // Создание пользовательской карточки

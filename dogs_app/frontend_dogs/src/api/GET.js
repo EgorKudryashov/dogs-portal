@@ -69,6 +69,18 @@ export const GetUserCards = async (setUserInfo, userId, token, setLenght, limit)
     });
 }
 
+// Запрос на получение информации о пользователе
+export const GetUserById = async (setInfo, id)=>{
+    try{
+        await axios.get(`http:${backendPath}/private/user/${id}`).then((response)=>{
+           if (!response.data.error) {setInfo(response.data)}
+           else {console.log(response.data.error)}
+        })
+    }catch(e){
+        console.log('Возникла ошибка. Попробуйте в другой раз.')
+    }
+}
+
 /*-----------------------------------------------------------------------*/
 /*------------------------Join----------------------------------------*/
 // Проверка пользователя на авторизацию

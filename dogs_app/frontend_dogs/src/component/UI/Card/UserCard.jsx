@@ -1,9 +1,10 @@
 import React, {useContext, useState} from 'react';
 import {Button, Card} from "react-bootstrap";
 import {AuthContext} from "../../../helpers/authContext";
+import {useHistory} from "react-router-dom";
 
-const UserCard = ({user, title, text, image, cardId, setDeleteCard, setUser, setId}) => {
-
+const UserCard = ({user, userId, title, text, image, cardId, setDeleteCard, setUser, setId}) => {
+    const history = useHistory()
     const { authState } = useContext(AuthContext);
     const userRole = ((authState.role==="ADMIN" || authState.role==="MODERATOR") ? true : false);
 
@@ -14,8 +15,12 @@ const UserCard = ({user, title, text, image, cardId, setDeleteCard, setUser, set
                     <Card.Img variant="top" src={`http://localhost:4000/${image}`}
                               className="img-thumbnail" alt="*картинка*"
                               style={{'width': '100%', 'height': '80%',"maxHeight":"410px","border-radius": "20px"}} />
-                    <div className="text-end" style={{color: "gray"}}>
-                        <Card.Title>Хозяин: {user}</Card.Title>
+                    <div className="text-end" style={{color: "gray"}}
+                         onClick = {()=>{history.push(`/ProfilePage/${userId}`)}}
+                    >
+                        <Card.Title >
+                           <div id='user_has_card'>Хозяин: {user}</div>
+                        </Card.Title>
                     </div>
                 </div>
                 <div className="col-md-6">

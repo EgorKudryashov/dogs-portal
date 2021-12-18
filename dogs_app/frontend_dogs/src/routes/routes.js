@@ -12,5 +12,5 @@ export const MyRoutes =[
     {path: '/community', component: CommunityPage, exact: true, key: 3},
     {path: '/join', component: JoinPage, exact: true, key: 4},
     {path: '/public/breed/:id', component: BreedPage, exact: true, key: 5},
-    {path: '/ProfilePage', component: ProfilePage, exact: true, key: 6}
+    {path: '/ProfilePage/:id', component: ProfilePage, exact: true, key: 6}
 ]

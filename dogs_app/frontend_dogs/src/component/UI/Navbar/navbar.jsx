@@ -7,7 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 
 const Navbar = () => {
-    const { loginWithPopup, loginWithRedirect, logout, isAuthenticated } = useAuth0()
+    const { logout, isAuthenticated } = useAuth0()
     const { authState, setAuthState } = useContext(AuthContext)
     const router = useHistory();
 
@@ -34,8 +34,8 @@ const Navbar = () => {
             </Link>
             <div className={classes.navbar__links}>
                 {isAuthenticated ? (
-                    <Link to='/ProfilePage' className={classes.navbar__element}>
-                        Профиль</Link> )
+                    <Link to = {`/ProfilePage/${authState.id}`} className={classes.navbar__element}>
+                        Мой профиль</Link> )
                     : (<></>)}
                 <Link to='/public' className={classes.navbar__element}>
                     Главная

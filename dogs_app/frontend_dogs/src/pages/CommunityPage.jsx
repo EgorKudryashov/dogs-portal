@@ -13,7 +13,7 @@ import {useAuth0} from "@auth0/auth0-react";
 const CommunityPage = () => {
     const {isAuthenticated, getAccessTokenSilently} = useAuth0()
     const { authState, setAuthState } = useContext(AuthContext);
-    const userStatus = (authState.statusOfAuth===true ? true : false);
+    //const userStatus = (authState.statusOfAuth===true ? true : false);
 
     const [activeAddCard, setActiveAddCard] = useState(false);
     const [cardInformation, setCardInformation] = useState([]);
@@ -27,12 +27,12 @@ const CommunityPage = () => {
     }
      useEffect(AllCards,[])
 
-    //Информация для удаления карточки
+    //  Информация для удаления карточки
     const [deleteUserCard, setDeleteUserCard] = useState(false);
     const [chosenUser, setChosenUser] = useState();
     const [deleteCardId, setDeleteCardId] = useState();
 
-    ///////////////////////////////////Информация для скроллинга
+    ///////////////////////////////////  Информация для скроллинга
     const [totalPages, setTotalPages]=useState(1);
     const limit = 2;
     const [currentPage, setCurrentPage]=useState(1);
@@ -89,9 +89,10 @@ const CommunityPage = () => {
                             {cardInformation.map((item, index=0)=>(
                                 index<((currentPage)*limit)
                                     ?
-                                    <div key={++index}>
+                                    <div key={++index} className='breed'>
                                         <UserCard
                                             user={item.User.username}
+                                            userId={item.UserId}
                                             title={item.title}
                                             text={item.content}
                                             image={item.image}
