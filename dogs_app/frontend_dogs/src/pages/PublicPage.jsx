@@ -32,7 +32,7 @@ const PublicPage = () => {
         await GetAllBreeds(setInformation, setTotalPages, limit);//Запрос на получение всех пород
         setActivePage(true);
     }
-    useEffect(getInfo,[totalPages])
+    useEffect(getInfo,[])
 
     let history = useHistory()
 
